@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+// generate separate or multiple java file for each generated class.
+option java_multiple_files = true;
+// Package inside the src/main/java where generated classes will reside.
+option java_package = "DS_CA.HealthMonitoringSensors";
+// Class name of the wrapper class which represent this file.
+option java_outer_classname = "HealthMonitoringSensorsImpl";
+
+package service3;
+
+// Interface exported by the server.
+service HealthMonitoringSensors {
+
+ // rpc method for client streaming calls
+  rpc tempScanner (stream VisitorEntryRequest) returns (TempResponse) {}
+
+ // rpc method for bidirectional streaming calls
+    rpc BMI (stream PatientBMIRequest) returns (BMIResultResponse) {}
+}
+
+// define each variable in rpc method separately
+// for client streaming variables
+message VisitorEntryRequest {
+  double tempRange = 1;
+}
+
+
+message TempResponse {
+  string access = 1;
+}
+//for Bi-directional variables
+message PatientBMIRequest {
+  double bmi = 1;
+}
+
+
+message BMIResultResponse {
+  string status = 1;
+}

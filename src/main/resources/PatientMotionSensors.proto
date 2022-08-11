@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+// generate separate or multiple java file for each generated class.
+option java_multiple_files = true;
+// Package inside the src/main/java where generated classes will reside.
+option java_package = "DS_CA.PatientMotionSensors";
+// Class name of the wrapper class which represent this file.
+option java_outer_classname = "PatientMotionSensorsImpl";
+
+package service2;
+
+// Interface exported by the server.
+service PatientMotionSensors {
+
+ // rpc method for bidirectional streaming calls
+  rpc motionMonit (stream PatientCabinRequest) returns (MonitorAlertResponse) {}
+
+// rpc method for server streaming calls
+  rpc operationSchedule (DoctorEntryRequest) returns (ScheduledResponse) {}
+
+}
+// define each variable in rpc method separately
+message PatientCabinRequest {
+  bool action = 1;
+}
+
+message MonitorAlertResponse {
+  string alert = 1;
+}
+
+message DoctorEntryRequest{
+  string data = 2;
+}
+
+message ScheduledResponse {
+  string booking = 2;
+}

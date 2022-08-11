@@ -1,0 +1,57 @@
+syntax = "proto3";
+
+// generate separate or multiple java file for each generated class.
+option java_multiple_files = true;
+// Package inside the src/main/java where generated classes will reside.
+option java_package = "DS_CA.SmartMedicalRecords";
+// Class name of the wrapper class which represent this file.
+option java_outer_classname = "SmartMedicalRecordsImpl";
+
+// package name
+package service1;
+
+// Interface exported by the server.
+service SmartMedicalRecords {
+
+  // rpc method for unary calls
+  rpc recordAccess (PatientIDRequest) returns (PatientRecordResponse) {}
+
+  // rpc method that does not return any response
+  rpc empty(Message) returns (Empty) {}
+
+  // rpc method for client streaming calls
+  rpc accessPharmacy (stream ConsultIDRequest) returns (MedicineListResponse) {}
+   }
+
+message PatientIDRequest {
+  string pID = 1;
+}
+
+message PatientRecordResponse {
+  string val = 1;
+}
+
+// Enum is a complex datatype that may contain other variables
+message Message {
+	enum Enum {
+        UNKNOWN = 0;
+        LOW = 1;
+        HIGH = 2;
+    }
+
+    Enum detail = 1;
+}
+
+message Empty {
+
+}
+
+message ConsultIDRequest {
+ string coulID = 1;
+
+}
+
+message MedicineListResponse {
+  string prescription = 1;
+
+}
