@@ -22,8 +22,11 @@
 	//This is ImplBase class that was generated from the proto file.
 		//You need to change this location for your projects. NOTICE: The class is in StringsServiceGrpc.java -> StringsServiceImplBase class (this Base class is generated from proto file option java_outer_classname)
 		import DS_CA.PatientMotionSensors.PatientMotionSensorsGrpc.PatientMotionSensorsImplBase;
-		import DS_CA.PatientMotionSensors.PatientCabinRequest;
+
+import DS_CA.PatientMotionSensors.PatientCabinRequest;
 		import DS_CA.PatientMotionSensors.MonitorAlertResponse;
+		import DS_CA.PatientMotionSensors.DoctorEntryRequest;
+		import DS_CA.PatientMotionSensors.ScheduledResponse;
 
 
 		//Extend the ImplBase imported class here. It is an Interface file with required rpc methods
@@ -72,11 +75,10 @@
 					public void onNext(PatientCabinRequest request) {
 						// In bidirectional stream, both server and  client would be sending the stream of messages.
 						// Here, for each message in stream from client, server is sending back one response.
-//							StringBuilder input1 = new StringBuilder(); 
-//						  
-//				            input1.append(request.getAction()); 
-				           // input1 = input1.reverse();
-						
+						StringBuilder input1 = new StringBuilder(); 
+						  
+			            input1.append(request.getAction()); 
+					/**	
 						boolean flag  = request.getAction();
 						 MonitorAlertResponse reply;
 						if(flag)
@@ -85,11 +87,11 @@
 						}
 						else {
 							reply=MonitorAlertResponse.newBuilder().setAlert("Normal: Continues monitering required").build();
-						}
+						}**/
 				        
 				         // Preparing and sending the reply for the client. Here, response is build and with the value (input1.toString()) computed by above logic.
 				           
-				      
+			            MonitorAlertResponse reply = MonitorAlertResponse.newBuilder().setAlert(input1.toString()).build();
 				            responseObserver.onNext(reply);
 						
 					}
@@ -108,25 +110,39 @@
 					
 				};
 			}
-			 public void operationSchedule(DoctorEntryRequest request) {
-				 StreamObserver<DoctorEntryRequest> responseObserver;
+		
+		/**
+			public void operationSchedule(DoctorEntryRequest request, StreamObserver<ScheduledResponse> responseObserver) {
 			 
-				 System.out.println("receiving split");
-				 
-				// Retrieve the value from the request of the client and convert it to array
-				 char[]characters = request.getData().toCharArray();
-				 
+				 System.out.println("Receiving Schedule");
 				// LOGIC of THE METHOD 
-					// NOTE: YOU MAY NEED TO MODIFY THIS LOGIC HERE.
-				 System.out.println(characters.length);
+				 String data  = request.getData();
+				 ScheduledResponse reply1;
 				 
-				 for(char c: characters) {			
+					if (data == "Emergency") {
+						reply1 = ScheduledResponse.newBuilder().setBooking(data).build(); 
+						//request = DoctorEntryRequest.newBuilder().setData(request.getData()).build();
+					}
+					else {
+						reply1 =ScheduledResponse.newBuilder().setBooking("Shedule is 1 week after").build();
+					}
+				// Retrieve the value from the request of the client and convert it to array
+				 
+				// char[]characters = request.getData().toCharArray();
+			
+				 
+				// System.out.println(characters.length);
+				 
+				 //for(char c: characters) {			
 					// Preparing and sending the reply for the client. Here, response is build and with the value (c) computed by above logic.
 					 // Here, a stream of response is sent using the for loop.
-					 responseObserver.onNext(ScheduledResponse.newBuilder().setBooking(Character.toString(c)).build());
-					 responseObserver.onNext(request);
-				 }
+					 responseObserver.onNext(reply1);
+					
+			 
 				 
 				 responseObserver.onCompleted();
-			}
+			
+			 
+	}**/
+}
 

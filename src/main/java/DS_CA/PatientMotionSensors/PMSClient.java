@@ -3,10 +3,13 @@
 	package DS_CA.PatientMotionSensors;
 
 
-		//required java packages for the program. Depends on your logic.
+		import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+//required java packages for the program. Depends on your logic.
 		import java.util.ArrayList;
 		import java.util.Arrays;
-		import java.util.Iterator;
+import java.util.Date;
+import java.util.Iterator;
 		import java.util.Random;
 		import java.util.logging.Level;
 		import java.util.logging.Logger;
@@ -21,9 +24,11 @@
 		import io.grpc.stub.StreamObserver;
 
 		//This is to include rpc method enum message
-		import DS_CA.SmartMedicalRecords.Message.Enum;
-import grpc.examples.bidirectionstreamstrings.StringRequest;
-import grpc.examples.bidirectionstreamstrings.StringResponse;
+		import DS_CA.PatientMotionSensors.PatientMotionSensorsGrpc.PatientMotionSensorsImplBase;
+		import DS_CA.PatientMotionSensors.PatientCabinRequest;
+		import DS_CA.PatientMotionSensors.MonitorAlertResponse;
+		import DS_CA.PatientMotionSensors.DoctorEntryRequest;
+		import DS_CA.PatientMotionSensors.ScheduledResponse;
 		
 
 
@@ -53,10 +58,10 @@ import grpc.examples.bidirectionstreamstrings.StringResponse;
 				motionMonit();
 				//Server stream RPC
 				// RPC call with Asynchronous stub
-				operationScheduleAsync();
+				//operationScheduleAsync();
 				
 				// RPC call with Blocking stub
-				operationScheduleBlocking();
+				//operationScheduleBlocking();
 				
 
 				// Closing the channel once message has been passed.		
@@ -72,7 +77,7 @@ import grpc.examples.bidirectionstreamstrings.StringResponse;
 					@Override
 					public void onNext(MonitorAlertResponse value) {
 
-						System.out.println("revered received is " + value.getAlert());
+						System.out.println("The motion status is: " + value.getAlert());
 
 					}
 
@@ -95,14 +100,22 @@ import grpc.examples.bidirectionstreamstrings.StringResponse;
 
 				// Here, we are calling the Remote reverseStream method. Using onNext, client sends a stream of messages.
 				StreamObserver<PatientCabinRequest> requestObserver = asyncStub.motionMonit(responseObserver);
-				
+				boolean action  = true;
+				 MonitorAlertResponse reply;
+				if(action)
+				{
+					reply=MonitorAlertResponse.newBuilder().setAlert("CAUTION: Immediate attention required").build();
+				}
+				else {
+					reply=MonitorAlertResponse.newBuilder().setAlert("Normal: Continues monitering required").build();
+				}
 				try {
 
 					requestObserver.onNext(PatientCabinRequest.newBuilder().setAction(true).build());
 //					requestObserver.onNext(PatientCabinRequest.newBuilder().setAction(false).build());
 //				
 
-					System.out.println("SENDING EMSSAGES");
+					System.out.println("SENDING MESSAGES");
 
 					// Mark the end of requests
 					requestObserver.onCompleted();
@@ -120,21 +133,23 @@ import grpc.examples.bidirectionstreamstrings.StringResponse;
 
 
 			}
-			
+			/**
 			// Server streaming in Async stub
 			public static void operationScheduleAsync() {
-				// First creating a request message. Here, the message contains a string in setVal
-				DoctorEntryRequest request = DoctorEntryRequest.newBuilder().setData("message 1 - introduction").build();
+				// First creating a request message. Here, the message contains a string in setData
+			
+				DoctorEntryRequest request = DoctorEntryRequest.newBuilder().setData("Emergency").build();
 
 				// Handling the stream from server using onNext (logic for handling each message in stream), onError, onCompleted (logic will be executed after the completion of stream)
 				StreamObserver<ScheduledResponse> responseObserver = new StreamObserver<ScheduledResponse>() {
 
-					int count =0 ;
+					
+					
 
 					@Override
-					public void onNext(ScheduledResponse value) {
-						System.out.println("receiving messages " + value);
-						count += 1;
+					public void onNext(ScheduledResponse data) {
+						System.out.println("receiving messages " + data);
+						
 					}
 
 					@Override
@@ -145,7 +160,7 @@ import grpc.examples.bidirectionstreamstrings.StringResponse;
 
 					@Override
 					public void onCompleted() {
-						System.out.println("stream is completed ... received "+ count+ " messages");
+						System.out.println("stream is completed ... received schedule on ");
 					}
 
 				};
@@ -155,7 +170,7 @@ import grpc.examples.bidirectionstreamstrings.StringResponse;
 
 
 				try {
-					Thread.sleep(30000);
+					Thread.sleep(3000);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -166,19 +181,25 @@ import grpc.examples.bidirectionstreamstrings.StringResponse;
 
 			//blocking server-streaming
 			public static void operationScheduleBlocking() {
-				// First creating a request message. Here, the message contains a string in setVal
-				DoctorEntryRequest request = DoctorEntryRequest.newBuilder().setData("message 1 - introduction").build();
-
+				// First creating a request message. Here, the message contains a string in setData
+				
+				DoctorEntryRequest request = DoctorEntryRequest.newBuilder().setData("Emergency").build();
+				
+				LocalDateTime t = LocalDateTime.ofEpochSecond(1537011000L, 0, ZoneOffset.UTC);
+			    Date d = new Date(1537011000L*1000);
+			    
+			    
 				// as this call is blocking. The client will not proceed until all the messages in stream has been received. 
 				try {
 					// Iterating each message in response when calling remote split RPC method.
 					ScheduledResponse responces = blockingStub.operationSchedule(request);
-					System.out.println(responces.getBooking());
+					System.out.println(t);
+				    System.out.println(d);
 					
 					// Client keeps a check on the next message in stream.
 //					while(responces.hasNext()) {
-//						ScheduledResponse temp = responces.next();
-//						System.out.println(temp.getBooking());				
+						ScheduledResponse temp = responces;
+						System.out.println(temp.getBooking());				
 //					}
 
 				} catch (StatusRuntimeException e) {
@@ -186,6 +207,6 @@ import grpc.examples.bidirectionstreamstrings.StringResponse;
 				}
 				
 			}
-
+**/
 
 }
