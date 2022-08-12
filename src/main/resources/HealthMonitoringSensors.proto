@@ -16,7 +16,7 @@ service HealthMonitoringSensors {
   rpc tempScanner (stream VisitorEntryRequest) returns (TempResponse) {}
 
  // rpc method for bidirectional streaming calls
-    rpc BMI (stream PatientBMIRequest) returns (BMIResultResponse) {}
+    rpc BMI (stream PatientBMIRequest) returns (stream BMIResultResponse) {}
 }
 
 // define each variable in rpc method separately
@@ -31,10 +31,11 @@ message TempResponse {
 }
 //for Bi-directional variables
 message PatientBMIRequest {
-  double bmi = 1;
+  double height = 1;
+  double weight=2;
 }
 
 
 message BMIResultResponse {
-  string status = 1;
+  string bmiStatus = 1;
 }

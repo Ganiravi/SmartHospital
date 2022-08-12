@@ -8,12 +8,12 @@ public interface BMIResultResponseOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>string status = 1;</code>
+   * <code>string bmiStatus = 1;</code>
    */
-  java.lang.String getStatus();
+  java.lang.String getBmiStatus();
   /**
-   * <code>string status = 1;</code>
+   * <code>string bmiStatus = 1;</code>
    */
   com.google.protobuf.ByteString
-      getStatusBytes();
+      getBmiStatusBytes();
 }

@@ -8,7 +8,12 @@ public interface PatientBMIRequestOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>double bmi = 1;</code>
+   * <code>double height = 1;</code>
    */
-  double getBmi();
+  double getHeight();
+
+  /**
+   * <code>double weight = 2;</code>
+   */
+  double getWeight();
 }

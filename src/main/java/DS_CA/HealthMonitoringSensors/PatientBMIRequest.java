@@ -20,7 +20,8 @@ private static final long serialVersionUID = 0L;
     super(builder);
   }
   private PatientBMIRequest() {
-    bmi_ = 0D;
+    height_ = 0D;
+    weight_ = 0D;
   }
 
   @java.lang.Override
@@ -49,7 +50,12 @@ private static final long serialVersionUID = 0L;
             break;
           case 9: {
 
-            bmi_ = input.readDouble();
+            height_ = input.readDouble();
+            break;
+          }
+          case 17: {
+
+            weight_ = input.readDouble();
             break;
           }
           default: {
@@ -84,13 +90,22 @@ private static final long serialVersionUID = 0L;
             DS_CA.HealthMonitoringSensors.PatientBMIRequest.class, DS_CA.HealthMonitoringSensors.PatientBMIRequest.Builder.class);
   }
 
-  public static final int BMI_FIELD_NUMBER = 1;
-  private double bmi_;
+  public static final int HEIGHT_FIELD_NUMBER = 1;
+  private double height_;
   /**
-   * <code>double bmi = 1;</code>
+   * <code>double height = 1;</code>
    */
-  public double getBmi() {
-    return bmi_;
+  public double getHeight() {
+    return height_;
+  }
+
+  public static final int WEIGHT_FIELD_NUMBER = 2;
+  private double weight_;
+  /**
+   * <code>double weight = 2;</code>
+   */
+  public double getWeight() {
+    return weight_;
   }
 
   private byte memoizedIsInitialized = -1;
@@ -107,8 +122,11 @@ private static final long serialVersionUID = 0L;
   @java.lang.Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
-    if (bmi_ != 0D) {
-      output.writeDouble(1, bmi_);
+    if (height_ != 0D) {
+      output.writeDouble(1, height_);
+    }
+    if (weight_ != 0D) {
+      output.writeDouble(2, weight_);
     }
     unknownFields.writeTo(output);
   }
@@ -119,9 +137,13 @@ private static final long serialVersionUID = 0L;
     if (size != -1) return size;
 
     size = 0;
-    if (bmi_ != 0D) {
+    if (height_ != 0D) {
       size += com.google.protobuf.CodedOutputStream
-        .computeDoubleSize(1, bmi_);
+        .computeDoubleSize(1, height_);
+    }
+    if (weight_ != 0D) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeDoubleSize(2, weight_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -140,9 +162,13 @@ private static final long serialVersionUID = 0L;
 
     boolean result = true;
     result = result && (
-        java.lang.Double.doubleToLongBits(getBmi())
+        java.lang.Double.doubleToLongBits(getHeight())
         == java.lang.Double.doubleToLongBits(
-            other.getBmi()));
+            other.getHeight()));
+    result = result && (
+        java.lang.Double.doubleToLongBits(getWeight())
+        == java.lang.Double.doubleToLongBits(
+            other.getWeight()));
     result = result && unknownFields.equals(other.unknownFields);
     return result;
   }
@@ -154,9 +180,12 @@ private static final long serialVersionUID = 0L;
     }
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
-    hash = (37 * hash) + BMI_FIELD_NUMBER;
+    hash = (37 * hash) + HEIGHT_FIELD_NUMBER;
     hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-        java.lang.Double.doubleToLongBits(getBmi()));
+        java.lang.Double.doubleToLongBits(getHeight()));
+    hash = (37 * hash) + WEIGHT_FIELD_NUMBER;
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        java.lang.Double.doubleToLongBits(getWeight()));
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -294,7 +323,9 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public Builder clear() {
       super.clear();
-      bmi_ = 0D;
+      height_ = 0D;
+
+      weight_ = 0D;
 
       return this;
     }
@@ -322,7 +353,8 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public DS_CA.HealthMonitoringSensors.PatientBMIRequest buildPartial() {
       DS_CA.HealthMonitoringSensors.PatientBMIRequest result = new DS_CA.HealthMonitoringSensors.PatientBMIRequest(this);
-      result.bmi_ = bmi_;
+      result.height_ = height_;
+      result.weight_ = weight_;
       onBuilt();
       return result;
     }
@@ -371,8 +403,11 @@ private static final long serialVersionUID = 0L;
 
     public Builder mergeFrom(DS_CA.HealthMonitoringSensors.PatientBMIRequest other) {
       if (other == DS_CA.HealthMonitoringSensors.PatientBMIRequest.getDefaultInstance()) return this;
-      if (other.getBmi() != 0D) {
-        setBmi(other.getBmi());
+      if (other.getHeight() != 0D) {
+        setHeight(other.getHeight());
+      }
+      if (other.getWeight() != 0D) {
+        setWeight(other.getWeight());
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -403,28 +438,54 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private double bmi_ ;
+    private double height_ ;
     /**
-     * <code>double bmi = 1;</code>
+     * <code>double height = 1;</code>
      */
-    public double getBmi() {
-      return bmi_;
+    public double getHeight() {
+      return height_;
     }
     /**
-     * <code>double bmi = 1;</code>
+     * <code>double height = 1;</code>
      */
-    public Builder setBmi(double value) {
+    public Builder setHeight(double value) {
       
-      bmi_ = value;
+      height_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>double bmi = 1;</code>
+     * <code>double height = 1;</code>
      */
-    public Builder clearBmi() {
+    public Builder clearHeight() {
       
-      bmi_ = 0D;
+      height_ = 0D;
+      onChanged();
+      return this;
+    }
+
+    private double weight_ ;
+    /**
+     * <code>double weight = 2;</code>
+     */
+    public double getWeight() {
+      return weight_;
+    }
+    /**
+     * <code>double weight = 2;</code>
+     */
+    public Builder setWeight(double value) {
+      
+      weight_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>double weight = 2;</code>
+     */
+    public Builder clearWeight() {
+      
+      weight_ = 0D;
       onChanged();
       return this;
     }

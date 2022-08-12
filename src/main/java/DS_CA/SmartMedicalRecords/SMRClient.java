@@ -7,7 +7,7 @@ package DS_CA.SmartMedicalRecords;
 	import java.util.Arrays;
 	import java.util.Iterator;
 	import java.util.Random;
-	import java.util.logging.Level;
+	
 	import java.util.logging.Logger;
 
 import com.google.protobuf.GeneratedMessageV3.Builder;
@@ -21,6 +21,8 @@ import com.google.protobuf.GeneratedMessageV3.Builder;
 
 	//This is to include rpc method enum message
 	import DS_CA.SmartMedicalRecords.Message.Enum;
+	//import DS_CA.SmartMedicalRecords.SmartMedicalRecordsGrpc.SmartMedicalRecordsBlockingStub;
+	//import DS_CA.SmartMedicalRecords.SmartMedicalRecordsGrpc.SmartMedicalRecordsStub;
 	
 
 
@@ -28,7 +30,7 @@ import com.google.protobuf.GeneratedMessageV3.Builder;
 	public class SMRClient {
 		// First we create a logger to show client side logs in the console. logger instance will be used to log different events at the client console.
 		// This is optional. Could be used if needed.
-		private static  Logger logger = Logger.getLogger(SMRClient.class.getName());
+		//private static  Logger logger = Logger.getLogger(SMRClient.class.getName());
 
 		// Creating stubs for establishing the connection with server.
 		// Blocking stub
@@ -62,7 +64,7 @@ import com.google.protobuf.GeneratedMessageV3.Builder;
 		//unary rpc
 		public static void recordAccess() {
 			// First creating a request message. Here, the message contains a string in setVal
-			PatientIDRequest req = PatientIDRequest.newBuilder().setPID("5645").build();
+			PatientIDRequest req = PatientIDRequest.newBuilder().setPID("545").build();
 			//req=PatientRecordResponse.getDefaultInstance("1").build();
 			//  Calling a remote RPC method using blocking stub defined in main method. req is the message we want to pass.
 			PatientRecordResponse response = blockingStub.recordAccess(req);

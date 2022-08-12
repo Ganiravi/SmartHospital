@@ -37,7 +37,7 @@ public final class PatientMotionSensorsGrpc {
       fullMethodName = SERVICE_NAME + '/' + "motionMonit",
       requestType = DS_CA.PatientMotionSensors.PatientCabinRequest.class,
       responseType = DS_CA.PatientMotionSensors.MonitorAlertResponse.class,
-      methodType = io.grpc.MethodDescriptor.MethodType.CLIENT_STREAMING)
+      methodType = io.grpc.MethodDescriptor.MethodType.BIDI_STREAMING)
   public static io.grpc.MethodDescriptor<DS_CA.PatientMotionSensors.PatientCabinRequest,
       DS_CA.PatientMotionSensors.MonitorAlertResponse> getMotionMonitMethod() {
     io.grpc.MethodDescriptor<DS_CA.PatientMotionSensors.PatientCabinRequest, DS_CA.PatientMotionSensors.MonitorAlertResponse> getMotionMonitMethod;
@@ -46,7 +46,7 @@ public final class PatientMotionSensorsGrpc {
         if ((getMotionMonitMethod = PatientMotionSensorsGrpc.getMotionMonitMethod) == null) {
           PatientMotionSensorsGrpc.getMotionMonitMethod = getMotionMonitMethod = 
               io.grpc.MethodDescriptor.<DS_CA.PatientMotionSensors.PatientCabinRequest, DS_CA.PatientMotionSensors.MonitorAlertResponse>newBuilder()
-              .setType(io.grpc.MethodDescriptor.MethodType.CLIENT_STREAMING)
+              .setType(io.grpc.MethodDescriptor.MethodType.BIDI_STREAMING)
               .setFullMethodName(generateFullMethodName(
                   "service2.PatientMotionSensors", "motionMonit"))
               .setSampledToLocalTracing(true)
@@ -69,7 +69,7 @@ public final class PatientMotionSensorsGrpc {
       fullMethodName = SERVICE_NAME + '/' + "operationSchedule",
       requestType = DS_CA.PatientMotionSensors.DoctorEntryRequest.class,
       responseType = DS_CA.PatientMotionSensors.ScheduledResponse.class,
-      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+      methodType = io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
   public static io.grpc.MethodDescriptor<DS_CA.PatientMotionSensors.DoctorEntryRequest,
       DS_CA.PatientMotionSensors.ScheduledResponse> getOperationScheduleMethod() {
     io.grpc.MethodDescriptor<DS_CA.PatientMotionSensors.DoctorEntryRequest, DS_CA.PatientMotionSensors.ScheduledResponse> getOperationScheduleMethod;
@@ -78,7 +78,7 @@ public final class PatientMotionSensorsGrpc {
         if ((getOperationScheduleMethod = PatientMotionSensorsGrpc.getOperationScheduleMethod) == null) {
           PatientMotionSensorsGrpc.getOperationScheduleMethod = getOperationScheduleMethod = 
               io.grpc.MethodDescriptor.<DS_CA.PatientMotionSensors.DoctorEntryRequest, DS_CA.PatientMotionSensors.ScheduledResponse>newBuilder()
-              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setType(io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
               .setFullMethodName(generateFullMethodName(
                   "service2.PatientMotionSensors", "operationSchedule"))
               .setSampledToLocalTracing(true)
@@ -148,14 +148,14 @@ public final class PatientMotionSensorsGrpc {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
             getMotionMonitMethod(),
-            asyncClientStreamingCall(
+            asyncBidiStreamingCall(
               new MethodHandlers<
                 DS_CA.PatientMotionSensors.PatientCabinRequest,
                 DS_CA.PatientMotionSensors.MonitorAlertResponse>(
                   this, METHODID_MOTION_MONIT)))
           .addMethod(
             getOperationScheduleMethod(),
-            asyncUnaryCall(
+            asyncServerStreamingCall(
               new MethodHandlers<
                 DS_CA.PatientMotionSensors.DoctorEntryRequest,
                 DS_CA.PatientMotionSensors.ScheduledResponse>(
@@ -192,7 +192,7 @@ public final class PatientMotionSensorsGrpc {
      */
     public io.grpc.stub.StreamObserver<DS_CA.PatientMotionSensors.PatientCabinRequest> motionMonit(
         io.grpc.stub.StreamObserver<DS_CA.PatientMotionSensors.MonitorAlertResponse> responseObserver) {
-      return asyncClientStreamingCall(
+      return asyncBidiStreamingCall(
           getChannel().newCall(getMotionMonitMethod(), getCallOptions()), responseObserver);
     }
 
@@ -203,7 +203,7 @@ public final class PatientMotionSensorsGrpc {
      */
     public void operationSchedule(DS_CA.PatientMotionSensors.DoctorEntryRequest request,
         io.grpc.stub.StreamObserver<DS_CA.PatientMotionSensors.ScheduledResponse> responseObserver) {
-      asyncUnaryCall(
+      asyncServerStreamingCall(
           getChannel().newCall(getOperationScheduleMethod(), getCallOptions()), request, responseObserver);
     }
   }
@@ -234,8 +234,9 @@ public final class PatientMotionSensorsGrpc {
      * rpc method for server streaming calls
      * </pre>
      */
-    public DS_CA.PatientMotionSensors.ScheduledResponse operationSchedule(DS_CA.PatientMotionSensors.DoctorEntryRequest request) {
-      return blockingUnaryCall(
+    public java.util.Iterator<DS_CA.PatientMotionSensors.ScheduledResponse> operationSchedule(
+        DS_CA.PatientMotionSensors.DoctorEntryRequest request) {
+      return blockingServerStreamingCall(
           getChannel(), getOperationScheduleMethod(), getCallOptions(), request);
     }
   }
@@ -259,17 +260,6 @@ public final class PatientMotionSensorsGrpc {
     protected PatientMotionSensorsFutureStub build(io.grpc.Channel channel,
         io.grpc.CallOptions callOptions) {
       return new PatientMotionSensorsFutureStub(channel, callOptions);
-    }
-
-    /**
-     * <pre>
-     * rpc method for server streaming calls
-     * </pre>
-     */
-    public com.google.common.util.concurrent.ListenableFuture<DS_CA.PatientMotionSensors.ScheduledResponse> operationSchedule(
-        DS_CA.PatientMotionSensors.DoctorEntryRequest request) {
-      return futureUnaryCall(
-          getChannel().newCall(getOperationScheduleMethod(), getCallOptions()), request);
     }
   }
 

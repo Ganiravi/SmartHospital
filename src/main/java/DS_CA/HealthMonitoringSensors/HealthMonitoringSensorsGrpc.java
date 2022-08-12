@@ -69,7 +69,7 @@ public final class HealthMonitoringSensorsGrpc {
       fullMethodName = SERVICE_NAME + '/' + "BMI",
       requestType = DS_CA.HealthMonitoringSensors.PatientBMIRequest.class,
       responseType = DS_CA.HealthMonitoringSensors.BMIResultResponse.class,
-      methodType = io.grpc.MethodDescriptor.MethodType.CLIENT_STREAMING)
+      methodType = io.grpc.MethodDescriptor.MethodType.BIDI_STREAMING)
   public static io.grpc.MethodDescriptor<DS_CA.HealthMonitoringSensors.PatientBMIRequest,
       DS_CA.HealthMonitoringSensors.BMIResultResponse> getBMIMethod() {
     io.grpc.MethodDescriptor<DS_CA.HealthMonitoringSensors.PatientBMIRequest, DS_CA.HealthMonitoringSensors.BMIResultResponse> getBMIMethod;
@@ -78,7 +78,7 @@ public final class HealthMonitoringSensorsGrpc {
         if ((getBMIMethod = HealthMonitoringSensorsGrpc.getBMIMethod) == null) {
           HealthMonitoringSensorsGrpc.getBMIMethod = getBMIMethod = 
               io.grpc.MethodDescriptor.<DS_CA.HealthMonitoringSensors.PatientBMIRequest, DS_CA.HealthMonitoringSensors.BMIResultResponse>newBuilder()
-              .setType(io.grpc.MethodDescriptor.MethodType.CLIENT_STREAMING)
+              .setType(io.grpc.MethodDescriptor.MethodType.BIDI_STREAMING)
               .setFullMethodName(generateFullMethodName(
                   "service3.HealthMonitoringSensors", "BMI"))
               .setSampledToLocalTracing(true)
@@ -155,7 +155,7 @@ public final class HealthMonitoringSensorsGrpc {
                   this, METHODID_TEMP_SCANNER)))
           .addMethod(
             getBMIMethod(),
-            asyncClientStreamingCall(
+            asyncBidiStreamingCall(
               new MethodHandlers<
                 DS_CA.HealthMonitoringSensors.PatientBMIRequest,
                 DS_CA.HealthMonitoringSensors.BMIResultResponse>(
@@ -203,7 +203,7 @@ public final class HealthMonitoringSensorsGrpc {
      */
     public io.grpc.stub.StreamObserver<DS_CA.HealthMonitoringSensors.PatientBMIRequest> bMI(
         io.grpc.stub.StreamObserver<DS_CA.HealthMonitoringSensors.BMIResultResponse> responseObserver) {
-      return asyncClientStreamingCall(
+      return asyncBidiStreamingCall(
           getChannel().newCall(getBMIMethod(), getCallOptions()), responseObserver);
     }
   }

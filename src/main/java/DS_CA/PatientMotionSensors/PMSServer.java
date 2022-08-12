@@ -40,7 +40,7 @@ import DS_CA.PatientMotionSensors.PatientCabinRequest;
 			 public static void main(String[] args) throws IOException, InterruptedException {
 				    
 				 // The StringServer is the current file name/ class name. Using an instance of this class different methods could be invoked by the client.
-				 PMSServer PMSServer = new PMSServer();
+				 PMSServer pmsServer = new PMSServer();
 
 				 	// This is the port number where server will be listening to clients. Refer - https://en.wikipedia.org/wiki/Port_(computer_networking) 
 				    int port = 50056;
@@ -48,7 +48,7 @@ import DS_CA.PatientMotionSensors.PatientCabinRequest;
 				    
 				    // Here, we create a server on the port defined in in variable "port" and attach a service "SmartMedicalRecordsServer" (instance of the class) defined above.
 				    Server server = ServerBuilder.forPort(port) // Port is defined in line 34
-				        .addService(PMSServer) // Service is defined in line 31
+				        .addService(pmsServer) // Service is defined in line 31
 				        .build() // Build the server
 				        .start(); // Start the server and keep it running for clients to contact.
 				    
@@ -104,7 +104,8 @@ import DS_CA.PatientMotionSensors.PatientCabinRequest;
 
 					@Override
 					public void onCompleted() {
-						 responseObserver.onCompleted();
+						System.out.println ("Receiving Monitoring alrt completed");						 
+						responseObserver.onCompleted();
 						
 					}
 					

@@ -47,14 +47,14 @@ public final class PatientMotionSensorsImpl {
       "\n\023PatientCabinRequest\022\016\n\006action\030\001 \001(\010\"%\n" +
       "\024MonitorAlertResponse\022\r\n\005alert\030\001 \001(\t\"\"\n\022" +
       "DoctorEntryRequest\022\014\n\004data\030\002 \001(\t\"$\n\021Sche" +
-      "duledResponse\022\017\n\007booking\030\002 \001(\t2\272\001\n\024Patie" +
-      "ntMotionSensors\022P\n\013motionMonit\022\035.service" +
+      "duledResponse\022\017\n\007booking\030\002 \001(\t2\276\001\n\024Patie" +
+      "ntMotionSensors\022R\n\013motionMonit\022\035.service" +
       "2.PatientCabinRequest\032\036.service2.Monitor" +
-      "AlertResponse\"\000(\001\022P\n\021operationSchedule\022\034" +
-      ".service2.DoctorEntryRequest\032\033.service2." +
-      "ScheduledResponse\"\000B8\n\032DS_CA.PatientMoti" +
-      "onSensorsB\030PatientMotionSensorsImplP\001b\006p" +
-      "roto3"
+      "AlertResponse\"\000(\0010\001\022R\n\021operationSchedule" +
+      "\022\034.service2.DoctorEntryRequest\032\033.service" +
+      "2.ScheduledResponse\"\0000\001B8\n\032DS_CA.Patient" +
+      "MotionSensorsB\030PatientMotionSensorsImplP" +
+      "\001b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {

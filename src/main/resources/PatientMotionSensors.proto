@@ -13,10 +13,10 @@ package service2;
 service PatientMotionSensors {
 
  // rpc method for bidirectional streaming calls
-  rpc motionMonit (stream PatientCabinRequest) returns (MonitorAlertResponse) {}
+  rpc motionMonit (stream PatientCabinRequest) returns (stream MonitorAlertResponse) {}
 
 // rpc method for server streaming calls
-  rpc operationSchedule (DoctorEntryRequest) returns (ScheduledResponse) {}
+  rpc operationSchedule (DoctorEntryRequest) returns (stream ScheduledResponse) {}
 
 }
 // define each variable in rpc method separately

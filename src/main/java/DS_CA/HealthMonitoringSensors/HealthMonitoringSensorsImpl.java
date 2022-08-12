@@ -45,15 +45,16 @@ public final class HealthMonitoringSensorsImpl {
     java.lang.String[] descriptorData = {
       "\n\035HealthMonitoringSensors.proto\022\010service" +
       "3\"(\n\023VisitorEntryRequest\022\021\n\ttempRange\030\001 " +
-      "\001(\001\"\036\n\014TempResponse\022\016\n\006access\030\001 \001(\t\" \n\021P" +
-      "atientBMIRequest\022\013\n\003bmi\030\001 \001(\001\"#\n\021BMIResu" +
-      "ltResponse\022\016\n\006status\030\001 \001(\t2\250\001\n\027HealthMon" +
-      "itoringSensors\022H\n\013tempScanner\022\035.service3" +
-      ".VisitorEntryRequest\032\026.service3.TempResp" +
-      "onse\"\000(\001\022C\n\003BMI\022\033.service3.PatientBMIReq" +
-      "uest\032\033.service3.BMIResultResponse\"\000(\001B>\n" +
-      "\035DS_CA.HealthMonitoringSensorsB\033HealthMo" +
-      "nitoringSensorsImplP\001b\006proto3"
+      "\001(\001\"\036\n\014TempResponse\022\016\n\006access\030\001 \001(\t\"3\n\021P" +
+      "atientBMIRequest\022\016\n\006height\030\001 \001(\001\022\016\n\006weig" +
+      "ht\030\002 \001(\001\"&\n\021BMIResultResponse\022\021\n\tbmiStat" +
+      "us\030\001 \001(\t2\252\001\n\027HealthMonitoringSensors\022H\n\013" +
+      "tempScanner\022\035.service3.VisitorEntryReque" +
+      "st\032\026.service3.TempResponse\"\000(\001\022E\n\003BMI\022\033." +
+      "service3.PatientBMIRequest\032\033.service3.BM" +
+      "IResultResponse\"\000(\0010\001B>\n\035DS_CA.HealthMon" +
+      "itoringSensorsB\033HealthMonitoringSensorsI" +
+      "mplP\001b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -84,13 +85,13 @@ public final class HealthMonitoringSensorsImpl {
     internal_static_service3_PatientBMIRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_service3_PatientBMIRequest_descriptor,
-        new java.lang.String[] { "Bmi", });
+        new java.lang.String[] { "Height", "Weight", });
     internal_static_service3_BMIResultResponse_descriptor =
       getDescriptor().getMessageTypes().get(3);
     internal_static_service3_BMIResultResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_service3_BMIResultResponse_descriptor,
-        new java.lang.String[] { "Status", });
+        new java.lang.String[] { "BmiStatus", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)
