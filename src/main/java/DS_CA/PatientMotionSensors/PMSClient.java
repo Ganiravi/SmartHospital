@@ -58,10 +58,10 @@ import java.util.Iterator;
 				motionMonit();
 				//Server stream RPC
 				// RPC call with Asynchronous stub
-				//operationScheduleAsync();
+				operationScheduleAsync();
 				
 				// RPC call with Blocking stub
-				//operationScheduleBlocking();
+				operationScheduleBlocking();
 				
 
 				// Closing the channel once message has been passed.		
@@ -73,12 +73,12 @@ import java.util.Iterator;
 
 				// Handling the server stream for client using onNext (logic for handling each message in stream), onError, onCompleted (logic will be executed after the completion of stream)
 				StreamObserver<MonitorAlertResponse> responseObserver = new StreamObserver<MonitorAlertResponse>() {
-
+					int count =0;
 					@Override
 					public void onNext(MonitorAlertResponse value) {
 
 						System.out.println("The motion status is: " + value.getAlert());
-
+						count+=1;
 					}
 
 					@Override
@@ -90,7 +90,7 @@ import java.util.Iterator;
 					@Override
 					public void onCompleted() {
 						// TODO Auto-generated method stub
-						System.out.println("server completed");
+						System.out.println("server completed" +count);
 					}
 
 
@@ -101,13 +101,15 @@ import java.util.Iterator;
 				// Here, we are calling the Remote reverseStream method. Using onNext, client sends a stream of messages.
 				StreamObserver<PatientCabinRequest> requestObserver = asyncStub.motionMonit(responseObserver);
 				boolean action  = true;
-				 MonitorAlertResponse reply;
+				//MonitorAlertResponse reply;
 				if(action)
 				{
-					reply=MonitorAlertResponse.newBuilder().setAlert("CAUTION: Immediate attention required").build();
+					//reply=MonitorAlertResponse.newBuilder().setAlert("CAUTION: Immediate attention required").build();
+					System.out.println("CAUTION: Immediate attention required");
 				}
 				else {
-					reply=MonitorAlertResponse.newBuilder().setAlert("Normal: Continues monitering required").build();
+					//reply=MonitorAlertResponse.newBuilder().setAlert("Normal: Continues monitering required").build();
+					System.out.println("Normal: Continues monitering required");
 				}
 				try {
 
@@ -133,7 +135,7 @@ import java.util.Iterator;
 
 
 			}
-			/**
+			
 			// Server streaming in Async stub
 			public static void operationScheduleAsync() {
 				// First creating a request message. Here, the message contains a string in setData
@@ -192,14 +194,14 @@ import java.util.Iterator;
 				// as this call is blocking. The client will not proceed until all the messages in stream has been received. 
 				try {
 					// Iterating each message in response when calling remote split RPC method.
-					ScheduledResponse responces = blockingStub.operationSchedule(request);
+					Iterator<ScheduledResponse> responces = blockingStub.operationSchedule(request);
 					System.out.println(t);
 				    System.out.println(d);
 					
 					// Client keeps a check on the next message in stream.
 //					while(responces.hasNext()) {
-						ScheduledResponse temp = responces;
-						System.out.println(temp.getBooking());				
+						//ScheduledResponse temp = responces;
+						System.out.println(responces.getBooking());				
 //					}
 
 				} catch (StatusRuntimeException e) {
@@ -207,6 +209,6 @@ import java.util.Iterator;
 				}
 				
 			}
-**/
+
 
 }
