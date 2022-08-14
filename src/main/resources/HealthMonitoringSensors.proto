@@ -17,8 +17,7 @@ service HealthMonitoringSensors {
 
  // rpc method for bi-directional streaming calls
     rpc bmi (stream PatientBMIRequest) returns (stream BMIResultResponse) {}
-      // rpc method that does not return any response
-  //rpc empty(Message) returns (Empty) {}
+
 }
 
 // define each variable in rpc method separately
@@ -47,17 +46,3 @@ message PatientBMIRequest {
 message BMIResultResponse {
   string bmiStatus = 1;
 }
-// Enum is a complex datatype that may contain other variables
-/**
-message Message {
-	enum Enum {
-        UNKNOWN = 0;
-
-    }
-
-    Enum detail = 1;
-}
-
-message Empty {
-
-}**/

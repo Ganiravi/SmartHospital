@@ -1,55 +1,47 @@
 //Name of the package where all the generated files are present.
 package DS_CA.HealthMonitoringSensors;
 
-
-import java.io.FileInputStream;
-//required java packages for the program. Depends on your logic.
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.InetAddress;
-import java.util.Scanner;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Properties;
-import java.util.concurrent.TimeUnit;
-import java.util.logging.Logger;
-
-import com.google.api.Service;
-import javax.jmdns.JmDNS;
-import javax.jmdns.ServiceInfo;
-import javax.jmdns.impl.JmDNSImpl.Operation;
-
-//required grpc package for the server side
-import io.grpc.Server;
-import io.grpc.ServerBuilder;
-import io.grpc.Status;
-import io.grpc.StatusRuntimeException;
-import io.grpc.stub.StreamObserver;
-
-//This is ImplBase class that was generated from the proto file.
-//You need to change this location for your projects. NOTICE: The class is in StringsServiceGrpc.java -> StringsServiceImplBase class (this Base class is generated from proto file option java_outer_classname)
-import DS_CA.HealthMonitoringSensors.HealthMonitoringSensorsGrpc.HealthMonitoringSensorsImplBase;
+//List of java packages/imports for the program. Depends on your logic.
 
 
-import DS_CA.HealthMonitoringSensors.PatientBMIRequest;
-import DS_CA.HealthMonitoringSensors.PatientBMIRequest.Bmistat;
-import DS_CA.HealthMonitoringSensors.BMIResultResponse;
-import DS_CA.HealthMonitoringSensors.VisitorEntryRequest;
-import DS_CA.HealthMonitoringSensors.TempResponse;
+	import java.io.FileInputStream;
+	import java.io.IOException;
+	import java.io.InputStream;
+	import java.net.InetAddress;
+	import java.util.Iterator;
+	import java.util.Properties;
+	import java.util.concurrent.TimeUnit;
+		
+	import com.google.api.Service;
+	import javax.jmdns.JmDNS;
+	import javax.jmdns.ServiceInfo;
+	import javax.jmdns.impl.JmDNSImpl.Operation;
+	
+	//required grpc package for the server side
+	import io.grpc.Server;
+	import io.grpc.ServerBuilder;
+	import io.grpc.Status;
+	import io.grpc.StatusRuntimeException;
+	import io.grpc.stub.StreamObserver;
+
+	//This is ImplBase class that was generated from the proto file.
+	import DS_CA.HealthMonitoringSensors.HealthMonitoringSensorsGrpc.HealthMonitoringSensorsImplBase;
+	import DS_CA.HealthMonitoringSensors.PatientBMIRequest;
+	import DS_CA.HealthMonitoringSensors.PatientBMIRequest.Bmistat;
+	import DS_CA.HealthMonitoringSensors.BMIResultResponse;
+	import DS_CA.HealthMonitoringSensors.VisitorEntryRequest;
+	import DS_CA.HealthMonitoringSensors.TempResponse;
 
 
-//Extend the ImplBase imported class here. It is an Interface file with required rpc methods
-public class HMSServer extends HealthMonitoringSensorsImplBase {
+	//The ImplBase imported class. It is an Interface file with required rpc methods
+	public class HMSServer extends HealthMonitoringSensorsImplBase {
 
-    //First we create a logger to show server side logs in the console. logger instance will be used to log different events at the server console.
-    //private static final Logger logger = Logger.getLogger(SMRServer.class.getName());
+   
+		//Main method which contain the logic to start the server.	For throws keyword refer https://www.javatpoint.com/throw-keyword
 
-    //Main method would contain the logic to start the server.	For throws keyword refer https://www.javatpoint.com/throw-keyword
-    //NOTE: THIS LOGIC WILL BE SAME FOR ALL THE TYPES OF SERVICES
     public static void main(String[] args) throws IOException, InterruptedException {
 
-        // The StringServer is the current file name/ class name. Using an instance of this class different methods could be invoked by the client.
+        // The HMSServer is the current file name/ class name. Using an instance of this class different methods could be invoked by the client.
         HMSServer hmsServer = new HMSServer();
         Properties prop = hmsServer.getProperties();
         hmsServer.registerServices(prop);
@@ -57,7 +49,7 @@ public class HMSServer extends HealthMonitoringSensorsImplBase {
         int port = 50055;
 
         try {
-            // Here, we create a server on the port defined in in variable "port" and attach a service "SmartMedicalRecordsServer" (instance of the class) defined above.
+            // Creating a server on the port defined in in variable "port" and attach a service "SmartMedicalRecordsServer" (instance of the class) defined above.
             Server server = ServerBuilder.forPort(port) // Port is defined in line 49
                 .addService(hmsServer) // Service is defined in line 31
                 .build() // Build the server
@@ -78,6 +70,8 @@ public class HMSServer extends HealthMonitoringSensorsImplBase {
             e.printStackTrace();
         }
     }
+    
+    //service registor
     private void registerServices(Properties prop) {
         try {
             // Create a JmDNS instance
@@ -85,7 +79,7 @@ public class HMSServer extends HealthMonitoringSensorsImplBase {
 
             String service_type = prop.getProperty("service_type"); //"_http._tcp.local.";
             String service_name = prop.getProperty("service_name"); // "example";
-            // int service_port = 1234;
+           
             int service_port = Integer.valueOf(prop.getProperty("service_port")); // #.50051;
 
 
@@ -98,7 +92,7 @@ public class HMSServer extends HealthMonitoringSensorsImplBase {
             System.out.printf("registrering service with type %s and name %s \n", service_type, service_name);
 
             // Wait a bit
-            Thread.sleep(1000);
+            Thread.sleep(800);
 
             // Unregister all services
             jmdns.unregisterAllServices();
@@ -111,7 +105,7 @@ public class HMSServer extends HealthMonitoringSensorsImplBase {
         }
 
     }
-
+    //Getting the property from sm.properties
     private Properties getProperties() {
         Properties prop = null;
 
@@ -137,29 +131,24 @@ public class HMSServer extends HealthMonitoringSensorsImplBase {
     }
 
 
+  //These RPC methods have been defined in the proto files. The interface is already present in the ImplBase File.
 
+  	//For override Refer - https://docs.oracle.com/javase/8/docs/api/java/lang/Override.html	 
 
-
-
-
+    //rpc method for client streaming
     @Override
-    public StreamObserver < VisitorEntryRequest > tempScanner(
-        StreamObserver < TempResponse > responseObserver) {
+    public StreamObserver < VisitorEntryRequest > tempScanner(StreamObserver < TempResponse > responseObserver) {
 
         // Retrieve the value from the stream of requests of the client. 
         return new StreamObserver < VisitorEntryRequest > () {
 
-            //ArrayList<Double> list = new ArrayList();
-
             double temp = 0;
 
             // For each message in the stream, get one stream at a time.
-            // NOTE: YOU MAY MODIFY THE LOGIC OF onNext, onError, onCompleted BASED ON YOUR PROJECT.
             @Override
             public void onNext(VisitorEntryRequest tempreq) {
                 // Here, in this example we compute the value of string length for each message in the stream. 
                 System.out.println("The observed Boday temperature is -> " + tempreq.getTempRange());
-                // Keep on adding all the length values to compute the total length of strings sent by the client in the stream 
 
                 temp = tempreq.getTempRange();
 
@@ -178,86 +167,26 @@ public class HMSServer extends HealthMonitoringSensorsImplBase {
                 // Here, response is sent once the client is done with sending the stream.
 
                 System.out.printf("receiving body temperature range  \n");
-
-
-
-
+                //Logic for this methods to check the given temperature range wis within acceptatble level to allow access to hospital
                 TempResponse result;
-                if (temp >= 37.8) {
+                if (temp >= 37.8) {//approved temp range
                     result = TempResponse.newBuilder().setAccess("STOP: Your body temperature is hight and NO Access in to hospital.").build();
                 } else {
                     result = TempResponse.newBuilder().setAccess("Approved: Welcome and you access in approved, Thank you.").build();
                 }
 
 
-                // Preparing the reply for the client. Here, response is build and with the value (output) computed by above logic.  
+                // Preparing the reply for the client. 
 
                 TempResponse entry = TempResponse.newBuilder().setAccess(result.toString()).build();
                 responseObserver.onNext(entry);
                 responseObserver.onCompleted();
 
-
-
-
             }
         };
     }
 
-
-    /**	
-    	public void empty(Message request, StreamObserver<Empty> responseObserver) {
-
-    		System.out.println("empty message "+ request.getDetail());
-    			
-    		//will generate an error CANCELLED: HTTP/2 error code: CANCEL
-    		Empty reply = Empty.newBuilder().build();
-    		
-    		// sending an empty response. No value is there.
-    		responseObserver.onNext(reply); 
-    		
-    		StatusRuntimeException er = new StatusRuntimeException(Status.ABORTED);
-    		responseObserver.onError(er);
-    	  
-    		responseObserver.onCompleted();
-    	}**/
-
-
-    // This is the second RPC method defined in proto file. It accepts an argument and return one.
-    public void bmi(PatientBMIRequest request, StreamObserver < BMIResultResponse > responseObserver) {
-
-        System.out.println("receiving Boday Mass Index (BMI) inputes, Height (in meter) : " + request.getHeight() + " Weight(in Kg): " + request.getWeight());
-
-        //String bmiStatus =  Double.toString(request.getHeight(), request.getWeight());
-
-
-
-        //printBMICategory(bmi);
-        BMIResultResponse bmiResponse;
-        if (request.getOperation() == Bmistat.BMILEVEL) {
-            double bmi = (100 * 100 * request.getWeight()) / ((request.getHeight()) * (request.getHeight()));
-
-            if (bmi < 18.5) {
-                bmiResponse = BMIResultResponse.newBuilder().setBmiStatus("You are underweight").build();
-            } else if (bmi < 25) {
-                bmiResponse = BMIResultResponse.newBuilder().setBmiStatus("You are normal").build();
-
-            } else if (bmi < 30) {
-                bmiResponse = BMIResultResponse.newBuilder().setBmiStatus("You are overweight").build();
-
-            } else {
-                bmiResponse = BMIResultResponse.newBuilder().setBmiStatus("You are obese").build();
-
-            }
-            BMIResultResponse finalresult = BMIResultResponse.newBuilder().setBmiStatus(bmiResponse.toString()).build();
-            responseObserver.onNext(finalresult);
-        }
-
-
-
-        responseObserver.onCompleted();
-    }
-
-
+//Bidirection method for BMI
     public StreamObserver < PatientBMIRequest > bmi(StreamObserver < BMIResultResponse > responseObserver) {
 
         return new StreamObserver < PatientBMIRequest > () {
@@ -266,12 +195,13 @@ public class HMSServer extends HealthMonitoringSensorsImplBase {
             public void onNext(PatientBMIRequest bmiInput) {
                 System.out.println("receiving Boday Mass Index (BMI) inputes, Height (in meter) : " + bmiInput.getHeight() + " Weight(in Kg): " + bmiInput.getWeight());
 
-                //	String compute =  Double.toString(bmiInput.getHeight(),bmiInput.getHeight());
+                //Logic method to calculate the BMI as per the given height and weight
                 double bmi = (100 * 100 * bmiInput.getWeight()) / ((bmiInput.getHeight()) * (bmiInput.getHeight()));
 
                 System.out.println("Your BMI is: " + bmi);
-                //printBMICategory(bmi);
+               
                 BMIResultResponse bmiResponse;
+                if (bmiInput.getOperation() == Bmistat.BMILEVEL) {
                 if (bmi < 18.5) {
                     bmiResponse = BMIResultResponse.newBuilder().setBmiStatus("You are underweight").build();
                 } else if (bmi < 25) {
@@ -285,11 +215,11 @@ public class HMSServer extends HealthMonitoringSensorsImplBase {
 
 
                 }
-
+                // sending communication
                 BMIResultResponse finalresult = BMIResultResponse.newBuilder().setBmiStatus(bmiResponse.toString()).build();
 
                 responseObserver.onNext(finalresult);
-
+                }
             }
 
             @Override

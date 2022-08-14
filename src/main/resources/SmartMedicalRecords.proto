@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-// generate separate or multiple java file for each generated class.
+// generated  multiple java file for each generated class.
 option java_multiple_files = true;
 // Package inside the src/main/java where generated classes will reside.
 option java_package = "DS_CA.SmartMedicalRecords";
@@ -22,7 +22,7 @@ service SmartMedicalRecords {
   // rpc method for client streaming calls
   rpc accessPharmacy (stream ConsultIDRequest) returns (MedicineListResponse) {}
    }
-
+//message for recordaccess
 message PatientIDRequest {
   string pID = 1;
 }
@@ -44,7 +44,7 @@ enum Enum {
 message Empty {
 
 }
-
+//message for accessPharmacy
 message ConsultIDRequest {
  string coulID = 1;
 

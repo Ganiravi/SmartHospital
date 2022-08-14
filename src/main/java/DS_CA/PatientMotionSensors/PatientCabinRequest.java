@@ -6,6 +6,7 @@ package DS_CA.PatientMotionSensors;
 /**
  * <pre>
  * define each variable in rpc method separately
+ *for motionMonit
  * </pre>
  *
  * Protobuf type {@code service2.PatientCabinRequest}
@@ -253,6 +254,7 @@ private static final long serialVersionUID = 0L;
   /**
    * <pre>
    * define each variable in rpc method separately
+   *for motionMonit
    * </pre>
    *
    * Protobuf type {@code service2.PatientCabinRequest}

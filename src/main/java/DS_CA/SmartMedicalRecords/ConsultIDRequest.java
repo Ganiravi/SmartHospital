@@ -4,6 +4,10 @@
 package DS_CA.SmartMedicalRecords;
 
 /**
+ * <pre>
+ *message for accessPharmacy
+ * </pre>
+ *
  * Protobuf type {@code service1.ConsultIDRequest}
  */
 public  final class ConsultIDRequest extends
@@ -271,6 +275,10 @@ private static final long serialVersionUID = 0L;
     return builder;
   }
   /**
+   * <pre>
+   *message for accessPharmacy
+   * </pre>
+   *
    * Protobuf type {@code service1.ConsultIDRequest}
    */
   public static final class Builder extends

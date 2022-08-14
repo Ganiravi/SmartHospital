@@ -4,6 +4,10 @@
 package DS_CA.PatientMotionSensors;
 
 /**
+ * <pre>
+ *for operationSchedule
+ * </pre>
+ *
  * Protobuf type {@code service2.DoctorEntryRequest}
  */
 public  final class DoctorEntryRequest extends
@@ -271,6 +275,10 @@ private static final long serialVersionUID = 0L;
     return builder;
   }
   /**
+   * <pre>
+   *for operationSchedule
+   * </pre>
+   *
    * Protobuf type {@code service2.DoctorEntryRequest}
    */
   public static final class Builder extends

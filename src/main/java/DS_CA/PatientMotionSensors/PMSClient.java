@@ -197,8 +197,7 @@ import java.util.Iterator;
 				try {
 					// Iterating each message in response when calling remote split RPC method.
 					Iterator<ScheduledResponse> responces = blockingStub.operationSchedule(request);
-					//System.out.println(t);
-				    //System.out.println(d);
+				
 					
 					//Client keeps a check on the next message in stream.
 			

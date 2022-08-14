@@ -92,9 +92,10 @@ import DS_CA.HealthMonitoringSensors.TempResponse;
 
 				StreamObserver<VisitorEntryRequest> requestObserver = asyncStub.tempScanner(responseObserver);
 				
+				double getTemp = 37.6;
 				
 				try {
-					requestObserver.onNext(VisitorEntryRequest.newBuilder().setTempRange(37.6).build());
+					requestObserver.onNext(VisitorEntryRequest.newBuilder().setTempRange(getTemp).build());
 					// Mark the end of requests
 					requestObserver.onCompleted();
 
@@ -108,8 +109,7 @@ import DS_CA.HealthMonitoringSensors.TempResponse;
 				}
 		}
 
-		
-			
+				
 				
 			public static void bmi() {
 
