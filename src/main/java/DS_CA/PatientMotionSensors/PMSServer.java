@@ -7,10 +7,15 @@
 		import java.io.IOException;
 import java.io.InputStream;
 import java.net.InetAddress;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 		import java.util.ArrayList;
-		import java.util.Iterator;
+import java.util.Date;
+import java.util.Iterator;
 import java.util.Properties;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 		import java.util.logging.Logger;
 
@@ -142,25 +147,25 @@ import DS_CA.PatientMotionSensors.PatientCabinRequest;
 					public void onNext(PatientCabinRequest request) {
 						// In bidirectional stream, both server and  client would be sending the stream of messages.
 						// Here, for each message in stream from client, server is sending back one response.
-						System.out.println("Monitering the action in patient cabin");
-						String input1=Boolean.toString(request.getAction());
+						System.out.println("Monitering the action in patient cabin.." +request.getAction());
+						//String input1=Boolean.toString(request.getAction());
 						//StringBuilder input1 = new StringBuilder(); 
 						  
 			           // input1.append(request.getAction()); 
-					/**	
+						
 						boolean flag  = request.getAction();
-						 MonitorAlertResponse reply;
+						 MonitorAlertResponse motion;
 						if(flag)
 						{
-							reply=MonitorAlertResponse.newBuilder().setAlert("CAUTION: Immediate attention required").build();
+							motion=MonitorAlertResponse.newBuilder().setAlert("CAUTION: Immediate attention required").build();
 						}
 						else {
-							reply=MonitorAlertResponse.newBuilder().setAlert("Normal: Continues monitering required").build();
-						}**/
+							motion=MonitorAlertResponse.newBuilder().setAlert("Normal: Continues monitering required").build();
+						}
 				        
 				         // Preparing and sending the reply for the client. Here, response is build and with the value (input1.toString()) computed by above logic.
 				           
-			            MonitorAlertResponse reply = MonitorAlertResponse.newBuilder().setAlert(input1.toString()).build();
+			            MonitorAlertResponse reply = MonitorAlertResponse.newBuilder().setAlert(motion.toString()).build();
 				            responseObserver.onNext(reply);
 						
 					}
@@ -184,14 +189,18 @@ import DS_CA.PatientMotionSensors.PatientCabinRequest;
 		
 			public void operationSchedule(DoctorEntryRequest request, StreamObserver<ScheduledResponse> responseObserver) {
 			 
-				 System.out.println("Receiving Schedule");
+				 System.out.println("Receiving Schedule:"+request.getData());
 				// LOGIC of THE METHOD 
-				 String data  = request.getData();
+				 String dates  = request.getData();
 				 ScheduledResponse reply1;
-				 
-					if (data == "Emergency") {
-						reply1 = ScheduledResponse.newBuilder().setBooking(data).build(); 
-						//request = DoctorEntryRequest.newBuilder().setData(request.getData()).build();
+				
+				
+					if (dates == "Emergency") {
+						LocalDateTime time = LocalDateTime.ofEpochSecond(1537011000L, 0, ZoneOffset.UTC);
+					   // DateTimeFormatter date = ISO_LOCAL_DATE_TIME;
+						reply1 = ScheduledResponse.newBuilder().setBooking(time.format(null)).build(); 
+					//	reply1 = ScheduledResponse.newBuilder().setBooking(time.format(ISO_LOCAL_DATE_TIME)).build(); 
+						
 					}
 					else {
 						reply1 =ScheduledResponse.newBuilder().setBooking("Shedule is 1 week after").build();

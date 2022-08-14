@@ -63,8 +63,9 @@ import com.google.protobuf.GeneratedMessageV3.Builder;
 
 		//unary rpc
 		public static void recordAccess() {
+			String id="545";
 			// First creating a request message. Here, the message contains a string in setVal
-			PatientIDRequest req = PatientIDRequest.newBuilder().setPID("545").build();
+			PatientIDRequest req = PatientIDRequest.newBuilder().setPID(id).build();
 			//req=PatientRecordResponse.getDefaultInstance("1").build();
 			//  Calling a remote RPC method using blocking stub defined in main method. req is the message we want to pass.
 			PatientRecordResponse response = blockingStub.recordAccess(req);

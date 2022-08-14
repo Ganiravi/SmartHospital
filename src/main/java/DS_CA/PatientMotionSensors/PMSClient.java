@@ -55,7 +55,7 @@ import java.util.Iterator;
 				asyncStub = PatientMotionSensorsGrpc.newStub(channel);
 
 				// Bi-Directional RPC call
-				motionMonit();
+				//motionMonit();
 				//Server stream RPC
 				// RPC call with Asynchronous stub
 				operationScheduleAsync();
@@ -100,9 +100,9 @@ import java.util.Iterator;
 
 				// Here, we are calling the Remote reverseStream method. Using onNext, client sends a stream of messages.
 				StreamObserver<PatientCabinRequest> requestObserver = asyncStub.motionMonit(responseObserver);
-				boolean action  = true;
+				//boolean action  = true;
 				//MonitorAlertResponse reply;
-				if(action)
+				/**if(action)
 				{
 					//reply=MonitorAlertResponse.newBuilder().setAlert("CAUTION: Immediate attention required").build();
 					System.out.println("CAUTION: Immediate attention required");
@@ -110,14 +110,14 @@ import java.util.Iterator;
 				else {
 					//reply=MonitorAlertResponse.newBuilder().setAlert("Normal: Continues monitering required").build();
 					System.out.println("Normal: Continues monitering required");
-				}
-				try {
+				}**/
+			try {
 
 					requestObserver.onNext(PatientCabinRequest.newBuilder().setAction(true).build());
 //					requestObserver.onNext(PatientCabinRequest.newBuilder().setAction(false).build());
 //				
 
-					System.out.println("SENDING MESSAGES");
+					//System.out.println("SENDING MESSAGES");
 
 					// Mark the end of requests
 					requestObserver.onCompleted();
@@ -146,12 +146,12 @@ import java.util.Iterator;
 				StreamObserver<ScheduledResponse> responseObserver = new StreamObserver<ScheduledResponse>() {
 
 					
-					
+					int count =0;
 
 					@Override
 					public void onNext(ScheduledResponse data) {
-						System.out.println("receiving messages " + data);
-						
+						System.out.println("receiving messages " + data.getBooking());
+						count+=1;
 					}
 
 					@Override
@@ -162,7 +162,7 @@ import java.util.Iterator;
 
 					@Override
 					public void onCompleted() {
-						System.out.println("stream is completed ... received schedule on ");
+						System.out.println("stream is completed ..." +count+" received schedule on ");
 					}
 
 				};
@@ -187,22 +187,24 @@ import java.util.Iterator;
 				
 				DoctorEntryRequest request = DoctorEntryRequest.newBuilder().setData("Emergency").build();
 				
-				LocalDateTime t = LocalDateTime.ofEpochSecond(1537011000L, 0, ZoneOffset.UTC);
-			    Date d = new Date(1537011000L*1000);
+				
 			    
+			   
 			    
 				// as this call is blocking. The client will not proceed until all the messages in stream has been received. 
 				try {
 					// Iterating each message in response when calling remote split RPC method.
 					Iterator<ScheduledResponse> responces = blockingStub.operationSchedule(request);
-					System.out.println(t);
-				    System.out.println(d);
+					//System.out.println(t);
+				    //System.out.println(d);
 					
-					// Client keeps a check on the next message in stream.
-//					while(responces.hasNext()) {
-						//ScheduledResponse temp = responces;
-						System.out.println(responces.getBooking());				
-//					}
+					//Client keeps a check on the next message in stream.
+			
+					while (responces.hasNext()) {
+				    
+				    ScheduledResponse temp = responces.next();
+						System.out.println(temp.getBooking());				
+					}
 
 				} catch (StatusRuntimeException e) {
 					e.printStackTrace();

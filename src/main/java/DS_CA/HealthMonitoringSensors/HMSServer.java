@@ -11,7 +11,8 @@
 	import java.util.Scanner;
 		import java.util.ArrayList;
 		import java.util.Iterator;
-	import java.util.Properties;
+import java.util.List;
+import java.util.Properties;
 	import java.util.concurrent.TimeUnit;
 	import java.util.logging.Logger;
 
@@ -25,12 +26,16 @@
 		import io.grpc.Status;
 		import io.grpc.StatusRuntimeException;
 		import io.grpc.stub.StreamObserver;
-	import DS_CA.HealthMonitoringSensors.BMIResultResponse.Builder;
+
 	//This is ImplBase class that was generated from the proto file.
 		//You need to change this location for your projects. NOTICE: The class is in StringsServiceGrpc.java -> StringsServiceImplBase class (this Base class is generated from proto file option java_outer_classname)
 		import DS_CA.HealthMonitoringSensors.HealthMonitoringSensorsGrpc.HealthMonitoringSensorsImplBase;
-import ds.examples.maths.ConvertMessage;
-import ds.examples.maths.ConvertResponse;
+import DS_CA.HealthMonitoringSensors.Empty;
+import DS_CA.HealthMonitoringSensors.Message;
+import DS_CA.HealthMonitoringSensors.PatientBMIRequest;
+import DS_CA.HealthMonitoringSensors.BMIResultResponse;
+import DS_CA.HealthMonitoringSensors.VisitorEntryRequest;
+import DS_CA.HealthMonitoringSensors.TempResponse;
 
 
 		//Extend the ImplBase imported class here. It is an Interface file with required rpc methods
@@ -130,7 +135,7 @@ import ds.examples.maths.ConvertResponse;
 		
 			 return prop;
 				
-			}
+		}
 
 		
 			
@@ -146,7 +151,7 @@ import ds.examples.maths.ConvertResponse;
 		 
 			
 			@Override
-		public StreamObserver<VisitorEntryRequest> tempScanner(
+		/**public StreamObserver<VisitorEntryRequest> tempScanner(
 				StreamObserver<TempResponse> responseObserver) {
 			
 			// Retrieve the value from the stream of requests of the client. 
@@ -180,9 +185,14 @@ import ds.examples.maths.ConvertResponse;
 					 // Here, response is sent once the client is done with sending the stream.
 					
 					System.out.printf("receiving body temperature range  \n" );
-					double list = new double (list.size());
+					
+			        {
+					double list1 = list.add(tempreq.getTemRange());
+
+
 					TempResponse result;
-					if(list >= 37.8) {
+					for (int i=0; i<list.size(); i++) {
+					if(list1 >= 37.8) {
 						result = TempResponse.newBuilder().setAccess("STOP: Your body temperature is hight and NO Access in to hospital.").build();
 					}
 					else {
@@ -199,21 +209,90 @@ import ds.examples.maths.ConvertResponse;
 				
 				
 			};
-		}
-			public StreamObserver<PatientBMIRequest> convertBase(StreamObserver<BMIResultResponse> responseObserver) {
+				}**/
+			
+		
+				
+				public void empty(Message request, StreamObserver<Empty> responseObserver) {
+
+					System.out.println("empty message "+ request.getOperation());
+						
+					//will generate an error CANCELLED: HTTP/2 error code: CANCEL
+					Empty reply = Empty.newBuilder().build();
+					
+					// sending an empty response. No value is there.
+					responseObserver.onNext(reply); 
+					
+					StatusRuntimeException er = new StatusRuntimeException(Status.ABORTED);
+					responseObserver.onError(er);
+				  
+					responseObserver.onCompleted();
+				}
+
+
+				// This is the second RPC method defined in proto file. It accepts an argument and return one.
+				public void bmi(PatientBMIRequest request, StreamObserver<BMIResultResponse> responseObserver) {
+					
+					System.out.println("receiving Boday Mass Index (BMI) inputes, Height (in meter) : "+ request.getHeight() + " Weight(in Kg): "+ request.getWeight());
+					
+						//String bmiStatus =  Double.toString(request.getHeight(), request.getWeight());
+						 double bmi = (100*100*request.getWeight())/((request.getHeight())*(request.getHeight()));
+					     
+					        System.out.println("Your BMI is: "+bmi);
+					        //printBMICategory(bmi);
+					        BMIResultResponse bmiResponse; 
+						
+					        if(bmi < 18.5) {
+							bmiResponse =BMIResultResponse.newBuilder().setBmiStatus("You are underweight").build(); 
+				        }else if (bmi < 25) {
+				        	bmiResponse =BMIResultResponse.newBuilder().setBmiStatus("You are normal").build(); 
+				        	
+				        }else if (bmi < 30) {
+				        	bmiResponse =BMIResultResponse.newBuilder().setBmiStatus("You are overweight").build(); 
+
+				        }else {
+				        	bmiResponse =BMIResultResponse.newBuilder().setBmiStatus("You are obese").build(); 
+
+			
+				        }
+						
+						BMIResultResponse finalresult = BMIResultResponse.newBuilder().setBmiStatus(bmiResponse.toString()).build();
+						
+						responseObserver.onNext(finalresult);
+						responseObserver.onCompleted();
+			}
+				/**
+				public StreamObserver<PatientBMIRequest> bmi(StreamObserver<BMIResultResponse> responseObserver) {
 				
 				return new StreamObserver<PatientBMIRequest> () {
 
 					@Override
 					public void onNext(PatientBMIRequest bmiInput) {
-						System.out.println("receiving Boday Mass Index (BMI) inputes, Height : "+ bmiInput.getHeight() + " Weight: "+ bmiInput.getWeight());
+						System.out.println("receiving Boday Mass Index (BMI) inputes, Height (in meter) : "+ bmiInput.getHeight() + " Weight(in Kg): "+ bmiInput.getWeight());
 						
-						String compute =  Double.toString(bmiInput.getBmiStatus());
+					//	String compute =  Double.toString(bmiInput.getHeight(),bmiInput.getHeight());
+						 double bmi = (100*100*bmiInput.getWeight())/((bmiInput.getHeight())*(bmiInput.getHeight()));
+					        
+					        System.out.println("Your BMI is: "+bmi);
+					        //printBMICategory(bmi);
+					        BMIResultResponse bmiResponse; 
+						if(bmi < 18.5) {
+							bmiResponse =BMIResultResponse.newBuilder().setBmiStatus("You are underweight").build(); 
+				        }else if (bmi < 25) {
+				        	bmiResponse =BMIResultResponse.newBuilder().setBmiStatus("You are normal").build(); 
+				        	
+				        }else if (bmi < 30) {
+				        	bmiResponse =BMIResultResponse.newBuilder().setBmiStatus("You are overweight").build(); 
+
+				        }else {
+				        	bmiResponse =BMIResultResponse.newBuilder().setBmiStatus("You are obese").build(); 
+
+			
+				        }
 						
+						BMIResultResponse finalresult = BMIResultResponse.newBuilder().setBmiStatus(bmiResponse.toString()).build();
 						
-						BMIResultResponse reply = BMIResultResponse.newBuilder().setBmiStatus(compute).build();
-						
-						responseObserver.onNext(reply);
+						responseObserver.onNext(finalresult);
 						
 					}
 
@@ -232,9 +311,12 @@ import ds.examples.maths.ConvertResponse;
 						responseObserver.onCompleted();
 					}
 					
-				};
-			}
-		}
+				};**/
+			
+			
+			
+			
+	}
 			
 
 

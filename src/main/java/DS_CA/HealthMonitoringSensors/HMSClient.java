@@ -13,8 +13,8 @@
 	import com.google.protobuf.GeneratedMessageV3.Builder;
 
 import DS_CA.HealthMonitoringSensors.VisitorEntryRequest;
-import ds.examples.maths.ConvertMessage;
-import ds.examples.maths.ConvertResponse;
+import DS_CA.HealthMonitoringSensors.PatientBMIRequest;
+import DS_CA.HealthMonitoringSensors.BMIResultResponse;
 import DS_CA.HealthMonitoringSensors.TempResponse;
 //required grpc package for the client side
 		import io.grpc.ManagedChannel;
@@ -25,8 +25,11 @@ import DS_CA.HealthMonitoringSensors.TempResponse;
 
 		//This is to include rpc method enum message
 		//import DS_CA.SmartMedicalRecords.Message.Enum;
-		//import DS_CA.SmartMedicalRecords.SmartMedicalRecordsGrpc.SmartMedicalRecordsBlockingStub;
-		//import DS_CA.SmartMedicalRecords.SmartMedicalRecordsGrpc.SmartMedicalRecordsStub;
+		import DS_CA.HealthMonitoringSensors.HealthMonitoringSensorsGrpc.HealthMonitoringSensorsBlockingStub;
+		import DS_CA.HealthMonitoringSensors.HealthMonitoringSensorsGrpc.HealthMonitoringSensorsStub;
+import DS_CA.HealthMonitoringSensors.Empty;
+import DS_CA.HealthMonitoringSensors.Message;
+import DS_CA.HealthMonitoringSensors.Message.Bmistat;
 		
 
 
@@ -54,9 +57,9 @@ import DS_CA.HealthMonitoringSensors.TempResponse;
 
 				
 				//client stream RPC
-				tempScanner();
-				// Bi-directional RPC call
-				//BMI();
+				//tempScanner();
+				// Unary RPC call
+				bmi();
 				//empty(); 	//passing an empty message - no server reply, error message
 
 				// Closing the channel once message has been passed.		
@@ -65,7 +68,7 @@ import DS_CA.HealthMonitoringSensors.TempResponse;
 			}
 
 			
-			public static void tempScanner() {
+	/**		public static void tempScanner() {
 
 				StreamObserver<TempResponse> responseObserver = new StreamObserver<TempResponse>() {
 
@@ -104,18 +107,51 @@ import DS_CA.HealthMonitoringSensors.TempResponse;
 					e.printStackTrace();
 				}
 
-}
-			public static void BMI() {
+}**/
+			
+			//unary rpc
+			public static void bmi() {
+				// First creating a request message. Here, the message contains a string in setVal
+				PatientBMIRequest req = PatientBMIRequest.newBuilder().setHeight(1.6).setWeight(89).build();
+				//req=PatientRecordResponse.getDefaultInstance("1").build();
+				//  Calling a remote RPC method using blocking stub defined in main method. req is the message we want to pass.
+				BMIResultResponse response = blockingStub.bmi(req);
+				
+				//response contains the output from the server side. Here, we are printing the value contained by response. 
+				System.out.println("BMI Status is " +response.getBmiStatus());
+			}
+
+
+			//unary rpc
+		/**	public static void empty() {
+				// First creating a request message. Here, the message contains emply message as defined in proto enum
+				Message req = Message.newBuilder().setDetail(Enum.UNKNOWN).build();
+				try {
+					// Calling a remote RPC method using blocking stub defined in main method. req is the message we want to pass.
+					Empty response = blockingStub.empty(req);
+					//response contains the output from the server side. Here, we are printing the value contained by response.
+					System.out.println("one response " + response.toString());
+
+				}catch(StatusRuntimeException ex) {
+					// Print if any error/exception is generated.
+					System.out.println( ex.getMessage());
+					//ex.printStackTrace();
+				}
+
+			}**/
+			
+			
+		/**	public static void BMI() {
 
 
 				StreamObserver<BMIResultResponse> responseObserver = new StreamObserver<BMIResultResponse>() {
 
-					int count =0 ;
+					int bmiOutput =0 ;
 
 					@Override
 					public void onNext(BMIResultResponse inputBMI) {
-						System.out.println("receiving converted number " + inputBMI.getHeight() + " base: "+ msg.getBase() );
-						count += 1;
+						System.out.println("receiving BMI status " + inputBMI.getBmiStatus());
+						bmiOutput += 1;
 					}
 
 					@Override
@@ -126,23 +162,19 @@ import DS_CA.HealthMonitoringSensors.TempResponse;
 
 					@Override
 					public void onCompleted() {
-						System.out.println("stream is completed ... received "+ count+ " converted numbers");
+						System.out.println("stream is completed ... received "+ bmiOutput+ " converted numbers");
 					}
 
 				};
 
 
 
-				StreamObserver<ConvertMessage> requestObserver = asyncStub.convertBase(responseObserver);
+				StreamObserver<PatientBMIRequest> requestObserver = asyncStub.bmi(responseObserver);
 
 				try {
 
-					requestObserver.onNext(ConvertMessage.newBuilder().setNumber("100").setFromBase(10).setToBase(2).build());
-					requestObserver.onNext(ConvertMessage.newBuilder().setNumber("177").setFromBase(8).setToBase(10).build());
-					requestObserver.onNext(ConvertMessage.newBuilder().setNumber("10100010").setFromBase(2).setToBase(10).build());
-					requestObserver.onNext(ConvertMessage.newBuilder().setNumber("AF45").setFromBase(16).setToBase(2).build());
-					requestObserver.onNext(ConvertMessage.newBuilder().setNumber("AF45").setFromBase(16).setToBase(10).build());
-
+					requestObserver.onNext(PatientBMIRequest.newBuilder().setHeight(1.6).setWeight(89).build());
+									
 
 					// Mark the end of requests
 					requestObserver.onCompleted();
@@ -167,5 +199,5 @@ import DS_CA.HealthMonitoringSensors.TempResponse;
 					e.printStackTrace();
 				}
 
-			}	
+			}	**/
 			}

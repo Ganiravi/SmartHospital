@@ -63,35 +63,67 @@ public final class HealthMonitoringSensorsGrpc {
   }
 
   private static volatile io.grpc.MethodDescriptor<DS_CA.HealthMonitoringSensors.PatientBMIRequest,
-      DS_CA.HealthMonitoringSensors.BMIResultResponse> getBMIMethod;
+      DS_CA.HealthMonitoringSensors.BMIResultResponse> getBmiMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "BMI",
+      fullMethodName = SERVICE_NAME + '/' + "bmi",
       requestType = DS_CA.HealthMonitoringSensors.PatientBMIRequest.class,
       responseType = DS_CA.HealthMonitoringSensors.BMIResultResponse.class,
-      methodType = io.grpc.MethodDescriptor.MethodType.BIDI_STREAMING)
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
   public static io.grpc.MethodDescriptor<DS_CA.HealthMonitoringSensors.PatientBMIRequest,
-      DS_CA.HealthMonitoringSensors.BMIResultResponse> getBMIMethod() {
-    io.grpc.MethodDescriptor<DS_CA.HealthMonitoringSensors.PatientBMIRequest, DS_CA.HealthMonitoringSensors.BMIResultResponse> getBMIMethod;
-    if ((getBMIMethod = HealthMonitoringSensorsGrpc.getBMIMethod) == null) {
+      DS_CA.HealthMonitoringSensors.BMIResultResponse> getBmiMethod() {
+    io.grpc.MethodDescriptor<DS_CA.HealthMonitoringSensors.PatientBMIRequest, DS_CA.HealthMonitoringSensors.BMIResultResponse> getBmiMethod;
+    if ((getBmiMethod = HealthMonitoringSensorsGrpc.getBmiMethod) == null) {
       synchronized (HealthMonitoringSensorsGrpc.class) {
-        if ((getBMIMethod = HealthMonitoringSensorsGrpc.getBMIMethod) == null) {
-          HealthMonitoringSensorsGrpc.getBMIMethod = getBMIMethod = 
+        if ((getBmiMethod = HealthMonitoringSensorsGrpc.getBmiMethod) == null) {
+          HealthMonitoringSensorsGrpc.getBmiMethod = getBmiMethod = 
               io.grpc.MethodDescriptor.<DS_CA.HealthMonitoringSensors.PatientBMIRequest, DS_CA.HealthMonitoringSensors.BMIResultResponse>newBuilder()
-              .setType(io.grpc.MethodDescriptor.MethodType.BIDI_STREAMING)
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(
-                  "service3.HealthMonitoringSensors", "BMI"))
+                  "service3.HealthMonitoringSensors", "bmi"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   DS_CA.HealthMonitoringSensors.PatientBMIRequest.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   DS_CA.HealthMonitoringSensors.BMIResultResponse.getDefaultInstance()))
-                  .setSchemaDescriptor(new HealthMonitoringSensorsMethodDescriptorSupplier("BMI"))
+                  .setSchemaDescriptor(new HealthMonitoringSensorsMethodDescriptorSupplier("bmi"))
                   .build();
           }
         }
      }
-     return getBMIMethod;
+     return getBmiMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<DS_CA.HealthMonitoringSensors.Message,
+      DS_CA.HealthMonitoringSensors.Empty> getEmptyMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "empty",
+      requestType = DS_CA.HealthMonitoringSensors.Message.class,
+      responseType = DS_CA.HealthMonitoringSensors.Empty.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<DS_CA.HealthMonitoringSensors.Message,
+      DS_CA.HealthMonitoringSensors.Empty> getEmptyMethod() {
+    io.grpc.MethodDescriptor<DS_CA.HealthMonitoringSensors.Message, DS_CA.HealthMonitoringSensors.Empty> getEmptyMethod;
+    if ((getEmptyMethod = HealthMonitoringSensorsGrpc.getEmptyMethod) == null) {
+      synchronized (HealthMonitoringSensorsGrpc.class) {
+        if ((getEmptyMethod = HealthMonitoringSensorsGrpc.getEmptyMethod) == null) {
+          HealthMonitoringSensorsGrpc.getEmptyMethod = getEmptyMethod = 
+              io.grpc.MethodDescriptor.<DS_CA.HealthMonitoringSensors.Message, DS_CA.HealthMonitoringSensors.Empty>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(
+                  "service3.HealthMonitoringSensors", "empty"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  DS_CA.HealthMonitoringSensors.Message.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  DS_CA.HealthMonitoringSensors.Empty.getDefaultInstance()))
+                  .setSchemaDescriptor(new HealthMonitoringSensorsMethodDescriptorSupplier("empty"))
+                  .build();
+          }
+        }
+     }
+     return getEmptyMethod;
   }
 
   /**
@@ -136,12 +168,22 @@ public final class HealthMonitoringSensorsGrpc {
 
     /**
      * <pre>
-     * rpc method for bidirectional streaming calls
+     * rpc method for unary streaming calls
      * </pre>
      */
-    public io.grpc.stub.StreamObserver<DS_CA.HealthMonitoringSensors.PatientBMIRequest> bMI(
+    public void bmi(DS_CA.HealthMonitoringSensors.PatientBMIRequest request,
         io.grpc.stub.StreamObserver<DS_CA.HealthMonitoringSensors.BMIResultResponse> responseObserver) {
-      return asyncUnimplementedStreamingCall(getBMIMethod(), responseObserver);
+      asyncUnimplementedUnaryCall(getBmiMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
+     * rpc method that does not return any response
+     * </pre>
+     */
+    public void empty(DS_CA.HealthMonitoringSensors.Message request,
+        io.grpc.stub.StreamObserver<DS_CA.HealthMonitoringSensors.Empty> responseObserver) {
+      asyncUnimplementedUnaryCall(getEmptyMethod(), responseObserver);
     }
 
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
@@ -154,12 +196,19 @@ public final class HealthMonitoringSensorsGrpc {
                 DS_CA.HealthMonitoringSensors.TempResponse>(
                   this, METHODID_TEMP_SCANNER)))
           .addMethod(
-            getBMIMethod(),
-            asyncBidiStreamingCall(
+            getBmiMethod(),
+            asyncUnaryCall(
               new MethodHandlers<
                 DS_CA.HealthMonitoringSensors.PatientBMIRequest,
                 DS_CA.HealthMonitoringSensors.BMIResultResponse>(
                   this, METHODID_BMI)))
+          .addMethod(
+            getEmptyMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                DS_CA.HealthMonitoringSensors.Message,
+                DS_CA.HealthMonitoringSensors.Empty>(
+                  this, METHODID_EMPTY)))
           .build();
     }
   }
@@ -198,13 +247,24 @@ public final class HealthMonitoringSensorsGrpc {
 
     /**
      * <pre>
-     * rpc method for bidirectional streaming calls
+     * rpc method for unary streaming calls
      * </pre>
      */
-    public io.grpc.stub.StreamObserver<DS_CA.HealthMonitoringSensors.PatientBMIRequest> bMI(
+    public void bmi(DS_CA.HealthMonitoringSensors.PatientBMIRequest request,
         io.grpc.stub.StreamObserver<DS_CA.HealthMonitoringSensors.BMIResultResponse> responseObserver) {
-      return asyncBidiStreamingCall(
-          getChannel().newCall(getBMIMethod(), getCallOptions()), responseObserver);
+      asyncUnaryCall(
+          getChannel().newCall(getBmiMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
+     * rpc method that does not return any response
+     * </pre>
+     */
+    public void empty(DS_CA.HealthMonitoringSensors.Message request,
+        io.grpc.stub.StreamObserver<DS_CA.HealthMonitoringSensors.Empty> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getEmptyMethod(), getCallOptions()), request, responseObserver);
     }
   }
 
@@ -228,6 +288,26 @@ public final class HealthMonitoringSensorsGrpc {
         io.grpc.CallOptions callOptions) {
       return new HealthMonitoringSensorsBlockingStub(channel, callOptions);
     }
+
+    /**
+     * <pre>
+     * rpc method for unary streaming calls
+     * </pre>
+     */
+    public DS_CA.HealthMonitoringSensors.BMIResultResponse bmi(DS_CA.HealthMonitoringSensors.PatientBMIRequest request) {
+      return blockingUnaryCall(
+          getChannel(), getBmiMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * rpc method that does not return any response
+     * </pre>
+     */
+    public DS_CA.HealthMonitoringSensors.Empty empty(DS_CA.HealthMonitoringSensors.Message request) {
+      return blockingUnaryCall(
+          getChannel(), getEmptyMethod(), getCallOptions(), request);
+    }
   }
 
   /**
@@ -250,10 +330,33 @@ public final class HealthMonitoringSensorsGrpc {
         io.grpc.CallOptions callOptions) {
       return new HealthMonitoringSensorsFutureStub(channel, callOptions);
     }
+
+    /**
+     * <pre>
+     * rpc method for unary streaming calls
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<DS_CA.HealthMonitoringSensors.BMIResultResponse> bmi(
+        DS_CA.HealthMonitoringSensors.PatientBMIRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(getBmiMethod(), getCallOptions()), request);
+    }
+
+    /**
+     * <pre>
+     * rpc method that does not return any response
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<DS_CA.HealthMonitoringSensors.Empty> empty(
+        DS_CA.HealthMonitoringSensors.Message request) {
+      return futureUnaryCall(
+          getChannel().newCall(getEmptyMethod(), getCallOptions()), request);
+    }
   }
 
-  private static final int METHODID_TEMP_SCANNER = 0;
-  private static final int METHODID_BMI = 1;
+  private static final int METHODID_BMI = 0;
+  private static final int METHODID_EMPTY = 1;
+  private static final int METHODID_TEMP_SCANNER = 2;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -272,6 +375,14 @@ public final class HealthMonitoringSensorsGrpc {
     @java.lang.SuppressWarnings("unchecked")
     public void invoke(Req request, io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
+        case METHODID_BMI:
+          serviceImpl.bmi((DS_CA.HealthMonitoringSensors.PatientBMIRequest) request,
+              (io.grpc.stub.StreamObserver<DS_CA.HealthMonitoringSensors.BMIResultResponse>) responseObserver);
+          break;
+        case METHODID_EMPTY:
+          serviceImpl.empty((DS_CA.HealthMonitoringSensors.Message) request,
+              (io.grpc.stub.StreamObserver<DS_CA.HealthMonitoringSensors.Empty>) responseObserver);
+          break;
         default:
           throw new AssertionError();
       }
@@ -285,9 +396,6 @@ public final class HealthMonitoringSensorsGrpc {
         case METHODID_TEMP_SCANNER:
           return (io.grpc.stub.StreamObserver<Req>) serviceImpl.tempScanner(
               (io.grpc.stub.StreamObserver<DS_CA.HealthMonitoringSensors.TempResponse>) responseObserver);
-        case METHODID_BMI:
-          return (io.grpc.stub.StreamObserver<Req>) serviceImpl.bMI(
-              (io.grpc.stub.StreamObserver<DS_CA.HealthMonitoringSensors.BMIResultResponse>) responseObserver);
         default:
           throw new AssertionError();
       }
@@ -340,7 +448,8 @@ public final class HealthMonitoringSensorsGrpc {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
               .setSchemaDescriptor(new HealthMonitoringSensorsFileDescriptorSupplier())
               .addMethod(getTempScannerMethod())
-              .addMethod(getBMIMethod())
+              .addMethod(getBmiMethod())
+              .addMethod(getEmptyMethod())
               .build();
         }
       }

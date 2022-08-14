@@ -34,6 +34,16 @@ public final class HealthMonitoringSensorsImpl {
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_service3_BMIResultResponse_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_service3_Message_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_service3_Message_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_service3_Empty_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_service3_Empty_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -48,13 +58,16 @@ public final class HealthMonitoringSensorsImpl {
       "\001(\001\"\036\n\014TempResponse\022\016\n\006access\030\001 \001(\t\"3\n\021P" +
       "atientBMIRequest\022\016\n\006height\030\001 \001(\001\022\016\n\006weig" +
       "ht\030\002 \001(\001\"&\n\021BMIResultResponse\022\021\n\tbmiStat" +
-      "us\030\001 \001(\t2\252\001\n\027HealthMonitoringSensors\022H\n\013" +
-      "tempScanner\022\035.service3.VisitorEntryReque" +
-      "st\032\026.service3.TempResponse\"\000(\001\022E\n\003BMI\022\033." +
-      "service3.PatientBMIRequest\032\033.service3.BM" +
-      "IResultResponse\"\000(\0010\001B>\n\035DS_CA.HealthMon" +
-      "itoringSensorsB\033HealthMonitoringSensorsI" +
-      "mplP\001b\006proto3"
+      "us\030\001 \001(\t\"P\n\007Message\022,\n\toperation\030\001 \001(\0162\031" +
+      ".service3.Message.Bmistat\"\027\n\007Bmistat\022\014\n\010" +
+      "BMILEVEL\020\000\"\007\n\005Empty2\325\001\n\027HealthMonitoring" +
+      "Sensors\022H\n\013tempScanner\022\035.service3.Visito" +
+      "rEntryRequest\032\026.service3.TempResponse\"\000(" +
+      "\001\022A\n\003bmi\022\033.service3.PatientBMIRequest\032\033." +
+      "service3.BMIResultResponse\"\000\022-\n\005empty\022\021." +
+      "service3.Message\032\017.service3.Empty\"\000B>\n\035D" +
+      "S_CA.HealthMonitoringSensorsB\033HealthMoni" +
+      "toringSensorsImplP\001b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -92,6 +105,18 @@ public final class HealthMonitoringSensorsImpl {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_service3_BMIResultResponse_descriptor,
         new java.lang.String[] { "BmiStatus", });
+    internal_static_service3_Message_descriptor =
+      getDescriptor().getMessageTypes().get(4);
+    internal_static_service3_Message_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_service3_Message_descriptor,
+        new java.lang.String[] { "Operation", });
+    internal_static_service3_Empty_descriptor =
+      getDescriptor().getMessageTypes().get(5);
+    internal_static_service3_Empty_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_service3_Empty_descriptor,
+        new java.lang.String[] { });
   }
 
   // @@protoc_insertion_point(outer_class_scope)
