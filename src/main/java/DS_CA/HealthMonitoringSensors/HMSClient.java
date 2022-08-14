@@ -27,9 +27,8 @@ import DS_CA.HealthMonitoringSensors.TempResponse;
 		//import DS_CA.SmartMedicalRecords.Message.Enum;
 		import DS_CA.HealthMonitoringSensors.HealthMonitoringSensorsGrpc.HealthMonitoringSensorsBlockingStub;
 		import DS_CA.HealthMonitoringSensors.HealthMonitoringSensorsGrpc.HealthMonitoringSensorsStub;
-import DS_CA.HealthMonitoringSensors.Empty;
-import DS_CA.HealthMonitoringSensors.Message;
-import DS_CA.HealthMonitoringSensors.Message.Bmistat;
+
+
 		
 
 
@@ -57,7 +56,7 @@ import DS_CA.HealthMonitoringSensors.Message.Bmistat;
 
 				
 				//client stream RPC
-				//tempScanner();
+				tempScanner();
 				// Unary RPC call
 				bmi();
 				//empty(); 	//passing an empty message - no server reply, error message
@@ -68,13 +67,14 @@ import DS_CA.HealthMonitoringSensors.Message.Bmistat;
 			}
 
 			
-	/**		public static void tempScanner() {
+		public static void tempScanner() {
 
 				StreamObserver<TempResponse> responseObserver = new StreamObserver<TempResponse>() {
-
+					int count =0;
 					@Override
 					public void onNext(TempResponse msg) {
 						System.out.println("Scanning in progress " + msg.getAccess() );
+						count+=1;
 					}
 
 					@Override
@@ -84,7 +84,7 @@ import DS_CA.HealthMonitoringSensors.Message.Bmistat;
 
 					@Override
 					public void onCompleted() {
-						System.out.println("stream is completed ... receiveing Temperature scanner result");
+						System.out.println("stream is completed ... "+count+ "receiveing Temperature scanner result");
 					}
 
 				};
@@ -106,42 +106,12 @@ import DS_CA.HealthMonitoringSensors.Message.Bmistat;
 				} catch (InterruptedException e) {			
 					e.printStackTrace();
 				}
+		}
 
-}**/
+		
 			
-			//unary rpc
-			public static void bmi() {
-				// First creating a request message. Here, the message contains a string in setVal
-				PatientBMIRequest req = PatientBMIRequest.newBuilder().setHeight(1.6).setWeight(89).build();
-				//req=PatientRecordResponse.getDefaultInstance("1").build();
-				//  Calling a remote RPC method using blocking stub defined in main method. req is the message we want to pass.
-				BMIResultResponse response = blockingStub.bmi(req);
 				
-				//response contains the output from the server side. Here, we are printing the value contained by response. 
-				System.out.println("BMI Status is " +response.getBmiStatus());
-			}
-
-
-			//unary rpc
-		/**	public static void empty() {
-				// First creating a request message. Here, the message contains emply message as defined in proto enum
-				Message req = Message.newBuilder().setDetail(Enum.UNKNOWN).build();
-				try {
-					// Calling a remote RPC method using blocking stub defined in main method. req is the message we want to pass.
-					Empty response = blockingStub.empty(req);
-					//response contains the output from the server side. Here, we are printing the value contained by response.
-					System.out.println("one response " + response.toString());
-
-				}catch(StatusRuntimeException ex) {
-					// Print if any error/exception is generated.
-					System.out.println( ex.getMessage());
-					//ex.printStackTrace();
-				}
-
-			}**/
-			
-			
-		/**	public static void BMI() {
+			public static void bmi() {
 
 
 				StreamObserver<BMIResultResponse> responseObserver = new StreamObserver<BMIResultResponse>() {
@@ -162,7 +132,7 @@ import DS_CA.HealthMonitoringSensors.Message.Bmistat;
 
 					@Override
 					public void onCompleted() {
-						System.out.println("stream is completed ... received "+ bmiOutput+ " converted numbers");
+						System.out.println("stream is completed ... received "+ bmiOutput+ " BMI check");
 					}
 
 				};
@@ -173,7 +143,7 @@ import DS_CA.HealthMonitoringSensors.Message.Bmistat;
 
 				try {
 
-					requestObserver.onNext(PatientBMIRequest.newBuilder().setHeight(1.6).setWeight(89).build());
+					requestObserver.onNext(PatientBMIRequest.newBuilder().setHeight(160).setWeight(89).build());
 									
 
 					// Mark the end of requests
@@ -199,5 +169,5 @@ import DS_CA.HealthMonitoringSensors.Message.Bmistat;
 					e.printStackTrace();
 				}
 
-			}	**/
+			}	
 			}

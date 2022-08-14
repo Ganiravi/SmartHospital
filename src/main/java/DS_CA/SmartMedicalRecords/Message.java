@@ -94,14 +94,6 @@ private static final long serialVersionUID = 0L;
      * <code>UNKNOWN = 0;</code>
      */
     UNKNOWN(0),
-    /**
-     * <code>LOW = 1;</code>
-     */
-    LOW(1),
-    /**
-     * <code>HIGH = 2;</code>
-     */
-    HIGH(2),
     UNRECOGNIZED(-1),
     ;
 
@@ -109,14 +101,6 @@ private static final long serialVersionUID = 0L;
      * <code>UNKNOWN = 0;</code>
      */
     public static final int UNKNOWN_VALUE = 0;
-    /**
-     * <code>LOW = 1;</code>
-     */
-    public static final int LOW_VALUE = 1;
-    /**
-     * <code>HIGH = 2;</code>
-     */
-    public static final int HIGH_VALUE = 2;
 
 
     public final int getNumber() {
@@ -138,8 +122,6 @@ private static final long serialVersionUID = 0L;
     public static Enum forNumber(int value) {
       switch (value) {
         case 0: return UNKNOWN;
-        case 1: return LOW;
-        case 2: return HIGH;
         default: return null;
       }
     }

@@ -16,4 +16,13 @@ public interface PatientBMIRequestOrBuilder extends
    * <code>double weight = 2;</code>
    */
   double getWeight();
+
+  /**
+   * <code>.service3.PatientBMIRequest.Bmistat operation = 3;</code>
+   */
+  int getOperationValue();
+  /**
+   * <code>.service3.PatientBMIRequest.Bmistat operation = 3;</code>
+   */
+  DS_CA.HealthMonitoringSensors.PatientBMIRequest.Bmistat getOperation();
 }

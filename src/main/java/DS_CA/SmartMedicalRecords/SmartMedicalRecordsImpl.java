@@ -55,19 +55,19 @@ public final class SmartMedicalRecordsImpl {
     java.lang.String[] descriptorData = {
       "\n\031SmartMedicalRecords.proto\022\010service1\"\037\n" +
       "\020PatientIDRequest\022\013\n\003pID\030\001 \001(\t\"$\n\025Patien" +
-      "tRecordResponse\022\013\n\003val\030\001 \001(\t\"Y\n\007Message\022" +
+      "tRecordResponse\022\013\n\003val\030\001 \001(\t\"F\n\007Message\022" +
       "&\n\006detail\030\001 \001(\0162\026.service1.Message.Enum\"" +
-      "&\n\004Enum\022\013\n\007UNKNOWN\020\000\022\007\n\003LOW\020\001\022\010\n\004HIGH\020\002\"" +
-      "\007\n\005Empty\"\"\n\020ConsultIDRequest\022\016\n\006coulID\030\001" +
-      " \001(\t\",\n\024MedicineListResponse\022\024\n\014prescrip" +
-      "tion\030\001 \001(\t2\345\001\n\023SmartMedicalRecords\022M\n\014re" +
-      "cordAccess\022\032.service1.PatientIDRequest\032\037" +
-      ".service1.PatientRecordResponse\"\000\022-\n\005emp" +
-      "ty\022\021.service1.Message\032\017.service1.Empty\"\000" +
-      "\022P\n\016accessPharmacy\022\032.service1.ConsultIDR" +
-      "equest\032\036.service1.MedicineListResponse\"\000" +
-      "(\001B6\n\031DS_CA.SmartMedicalRecordsB\027SmartMe" +
-      "dicalRecordsImplP\001b\006proto3"
+      "\023\n\004Enum\022\013\n\007UNKNOWN\020\000\"\007\n\005Empty\"\"\n\020Consult" +
+      "IDRequest\022\016\n\006coulID\030\001 \001(\t\",\n\024MedicineLis" +
+      "tResponse\022\024\n\014prescription\030\001 \001(\t2\345\001\n\023Smar" +
+      "tMedicalRecords\022M\n\014recordAccess\022\032.servic" +
+      "e1.PatientIDRequest\032\037.service1.PatientRe" +
+      "cordResponse\"\000\022-\n\005empty\022\021.service1.Messa" +
+      "ge\032\017.service1.Empty\"\000\022P\n\016accessPharmacy\022" +
+      "\032.service1.ConsultIDRequest\032\036.service1.M" +
+      "edicineListResponse\"\000(\001B6\n\031DS_CA.SmartMe" +
+      "dicalRecordsB\027SmartMedicalRecordsImplP\001b" +
+      "\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {

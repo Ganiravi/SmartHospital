@@ -206,13 +206,13 @@ import javax.swing.JButton;
 			//textResponse.setSize(new Dimension(15, 30));
 			panel_service_1.add(scrollPane);
 			
-			
+		/**	
 			JPanel panel_service_2 = new JPanel();
 			frame.getContentPane().add(panel_service_2);
 			
 			JPanel panel_service_3 = new JPanel();
 			frame.getContentPane().add(panel_service_3);
-			
+			**/
 			
 			
 		}

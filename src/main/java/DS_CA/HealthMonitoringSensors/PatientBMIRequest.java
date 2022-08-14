@@ -22,6 +22,7 @@ private static final long serialVersionUID = 0L;
   private PatientBMIRequest() {
     height_ = 0D;
     weight_ = 0D;
+    operation_ = 0;
   }
 
   @java.lang.Override
@@ -58,6 +59,12 @@ private static final long serialVersionUID = 0L;
             weight_ = input.readDouble();
             break;
           }
+          case 24: {
+            int rawValue = input.readEnum();
+
+            operation_ = rawValue;
+            break;
+          }
           default: {
             if (!parseUnknownFieldProto3(
                 input, unknownFields, extensionRegistry, tag)) {
@@ -90,6 +97,95 @@ private static final long serialVersionUID = 0L;
             DS_CA.HealthMonitoringSensors.PatientBMIRequest.class, DS_CA.HealthMonitoringSensors.PatientBMIRequest.Builder.class);
   }
 
+  /**
+   * Protobuf enum {@code service3.PatientBMIRequest.Bmistat}
+   */
+  public enum Bmistat
+      implements com.google.protobuf.ProtocolMessageEnum {
+    /**
+     * <code>BMILEVEL = 0;</code>
+     */
+    BMILEVEL(0),
+    UNRECOGNIZED(-1),
+    ;
+
+    /**
+     * <code>BMILEVEL = 0;</code>
+     */
+    public static final int BMILEVEL_VALUE = 0;
+
+
+    public final int getNumber() {
+      if (this == UNRECOGNIZED) {
+        throw new java.lang.IllegalArgumentException(
+            "Can't get the number of an unknown enum value.");
+      }
+      return value;
+    }
+
+    /**
+     * @deprecated Use {@link #forNumber(int)} instead.
+     */
+    @java.lang.Deprecated
+    public static Bmistat valueOf(int value) {
+      return forNumber(value);
+    }
+
+    public static Bmistat forNumber(int value) {
+      switch (value) {
+        case 0: return BMILEVEL;
+        default: return null;
+      }
+    }
+
+    public static com.google.protobuf.Internal.EnumLiteMap<Bmistat>
+        internalGetValueMap() {
+      return internalValueMap;
+    }
+    private static final com.google.protobuf.Internal.EnumLiteMap<
+        Bmistat> internalValueMap =
+          new com.google.protobuf.Internal.EnumLiteMap<Bmistat>() {
+            public Bmistat findValueByNumber(int number) {
+              return Bmistat.forNumber(number);
+            }
+          };
+
+    public final com.google.protobuf.Descriptors.EnumValueDescriptor
+        getValueDescriptor() {
+      return getDescriptor().getValues().get(ordinal());
+    }
+    public final com.google.protobuf.Descriptors.EnumDescriptor
+        getDescriptorForType() {
+      return getDescriptor();
+    }
+    public static final com.google.protobuf.Descriptors.EnumDescriptor
+        getDescriptor() {
+      return DS_CA.HealthMonitoringSensors.PatientBMIRequest.getDescriptor().getEnumTypes().get(0);
+    }
+
+    private static final Bmistat[] VALUES = values();
+
+    public static Bmistat valueOf(
+        com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+      if (desc.getType() != getDescriptor()) {
+        throw new java.lang.IllegalArgumentException(
+          "EnumValueDescriptor is not for this type.");
+      }
+      if (desc.getIndex() == -1) {
+        return UNRECOGNIZED;
+      }
+      return VALUES[desc.getIndex()];
+    }
+
+    private final int value;
+
+    private Bmistat(int value) {
+      this.value = value;
+    }
+
+    // @@protoc_insertion_point(enum_scope:service3.PatientBMIRequest.Bmistat)
+  }
+
   public static final int HEIGHT_FIELD_NUMBER = 1;
   private double height_;
   /**
@@ -106,6 +202,23 @@ private static final long serialVersionUID = 0L;
    */
   public double getWeight() {
     return weight_;
+  }
+
+  public static final int OPERATION_FIELD_NUMBER = 3;
+  private int operation_;
+  /**
+   * <code>.service3.PatientBMIRequest.Bmistat operation = 3;</code>
+   */
+  public int getOperationValue() {
+    return operation_;
+  }
+  /**
+   * <code>.service3.PatientBMIRequest.Bmistat operation = 3;</code>
+   */
+  public DS_CA.HealthMonitoringSensors.PatientBMIRequest.Bmistat getOperation() {
+    @SuppressWarnings("deprecation")
+    DS_CA.HealthMonitoringSensors.PatientBMIRequest.Bmistat result = DS_CA.HealthMonitoringSensors.PatientBMIRequest.Bmistat.valueOf(operation_);
+    return result == null ? DS_CA.HealthMonitoringSensors.PatientBMIRequest.Bmistat.UNRECOGNIZED : result;
   }
 
   private byte memoizedIsInitialized = -1;
@@ -128,6 +241,9 @@ private static final long serialVersionUID = 0L;
     if (weight_ != 0D) {
       output.writeDouble(2, weight_);
     }
+    if (operation_ != DS_CA.HealthMonitoringSensors.PatientBMIRequest.Bmistat.BMILEVEL.getNumber()) {
+      output.writeEnum(3, operation_);
+    }
     unknownFields.writeTo(output);
   }
 
@@ -144,6 +260,10 @@ private static final long serialVersionUID = 0L;
     if (weight_ != 0D) {
       size += com.google.protobuf.CodedOutputStream
         .computeDoubleSize(2, weight_);
+    }
+    if (operation_ != DS_CA.HealthMonitoringSensors.PatientBMIRequest.Bmistat.BMILEVEL.getNumber()) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeEnumSize(3, operation_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -169,6 +289,7 @@ private static final long serialVersionUID = 0L;
         java.lang.Double.doubleToLongBits(getWeight())
         == java.lang.Double.doubleToLongBits(
             other.getWeight()));
+    result = result && operation_ == other.operation_;
     result = result && unknownFields.equals(other.unknownFields);
     return result;
   }
@@ -186,6 +307,8 @@ private static final long serialVersionUID = 0L;
     hash = (37 * hash) + WEIGHT_FIELD_NUMBER;
     hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
         java.lang.Double.doubleToLongBits(getWeight()));
+    hash = (37 * hash) + OPERATION_FIELD_NUMBER;
+    hash = (53 * hash) + operation_;
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -327,6 +450,8 @@ private static final long serialVersionUID = 0L;
 
       weight_ = 0D;
 
+      operation_ = 0;
+
       return this;
     }
 
@@ -355,6 +480,7 @@ private static final long serialVersionUID = 0L;
       DS_CA.HealthMonitoringSensors.PatientBMIRequest result = new DS_CA.HealthMonitoringSensors.PatientBMIRequest(this);
       result.height_ = height_;
       result.weight_ = weight_;
+      result.operation_ = operation_;
       onBuilt();
       return result;
     }
@@ -408,6 +534,9 @@ private static final long serialVersionUID = 0L;
       }
       if (other.getWeight() != 0D) {
         setWeight(other.getWeight());
+      }
+      if (other.operation_ != 0) {
+        setOperationValue(other.getOperationValue());
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -486,6 +615,51 @@ private static final long serialVersionUID = 0L;
     public Builder clearWeight() {
       
       weight_ = 0D;
+      onChanged();
+      return this;
+    }
+
+    private int operation_ = 0;
+    /**
+     * <code>.service3.PatientBMIRequest.Bmistat operation = 3;</code>
+     */
+    public int getOperationValue() {
+      return operation_;
+    }
+    /**
+     * <code>.service3.PatientBMIRequest.Bmistat operation = 3;</code>
+     */
+    public Builder setOperationValue(int value) {
+      operation_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>.service3.PatientBMIRequest.Bmistat operation = 3;</code>
+     */
+    public DS_CA.HealthMonitoringSensors.PatientBMIRequest.Bmistat getOperation() {
+      @SuppressWarnings("deprecation")
+      DS_CA.HealthMonitoringSensors.PatientBMIRequest.Bmistat result = DS_CA.HealthMonitoringSensors.PatientBMIRequest.Bmistat.valueOf(operation_);
+      return result == null ? DS_CA.HealthMonitoringSensors.PatientBMIRequest.Bmistat.UNRECOGNIZED : result;
+    }
+    /**
+     * <code>.service3.PatientBMIRequest.Bmistat operation = 3;</code>
+     */
+    public Builder setOperation(DS_CA.HealthMonitoringSensors.PatientBMIRequest.Bmistat value) {
+      if (value == null) {
+        throw new NullPointerException();
+      }
+      
+      operation_ = value.getNumber();
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>.service3.PatientBMIRequest.Bmistat operation = 3;</code>
+     */
+    public Builder clearOperation() {
+      
+      operation_ = 0;
       onChanged();
       return this;
     }

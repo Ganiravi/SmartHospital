@@ -161,7 +161,7 @@ import DS_CA.SmartMedicalRecords.MedicineListResponse.Builder;
 			
 			int pID = Integer.parseInt(request.getPID());
 			// LOGIC of THE METHOD 
-		
+			
 			if (pID < 1 || pID > 1000) {
 	            System.out.println("Patient record in not available: "+request.getPID());
 			}

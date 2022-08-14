@@ -55,7 +55,7 @@ import java.util.Iterator;
 				asyncStub = PatientMotionSensorsGrpc.newStub(channel);
 
 				// Bi-Directional RPC call
-				//motionMonit();
+				motionMonit();
 				//Server stream RPC
 				// RPC call with Asynchronous stub
 				operationScheduleAsync();
@@ -69,6 +69,7 @@ import java.util.Iterator;
 
 			}
 			//Bi-Directional RPC
+		
 			public static void motionMonit() {
 
 				// Handling the server stream for client using onNext (logic for handling each message in stream), onError, onCompleted (logic will be executed after the completion of stream)
@@ -137,6 +138,7 @@ import java.util.Iterator;
 			}
 			
 			// Server streaming in Async stub
+			
 			public static void operationScheduleAsync() {
 				// First creating a request message. Here, the message contains a string in setData
 			
@@ -149,8 +151,8 @@ import java.util.Iterator;
 					int count =0;
 
 					@Override
-					public void onNext(ScheduledResponse data) {
-						System.out.println("receiving messages " + data.getBooking());
+					public void onNext(ScheduledResponse dates) {
+						System.out.println("receiving schedule.... ");
 						count+=1;
 					}
 
@@ -178,10 +180,10 @@ import java.util.Iterator;
 					e.printStackTrace();
 				}
 
-
 			}
 
 			//blocking server-streaming
+			
 			public static void operationScheduleBlocking() {
 				// First creating a request message. Here, the message contains a string in setData
 				

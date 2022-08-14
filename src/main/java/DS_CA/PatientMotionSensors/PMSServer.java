@@ -9,36 +9,19 @@ import java.io.InputStream;
 import java.net.InetAddress;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
-import java.time.format.DateTimeFormatter;
-import java.util.Scanner;
-		import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
 import java.util.Properties;
-import java.util.Random;
 import java.util.concurrent.TimeUnit;
-		import java.util.logging.Logger;
 
 import javax.jmdns.JmDNS;
 import javax.jmdns.ServiceInfo;
 
-import com.google.api.Service;
-
-		//required grpc package for the server side
-		import io.grpc.Server;
-		import io.grpc.ServerBuilder;
-		import io.grpc.Status;
-		import io.grpc.StatusRuntimeException;
-		import io.grpc.stub.StreamObserver;
-
-	//This is ImplBase class that was generated from the proto file.
+//This is ImplBase class that was generated from the proto file.
 		//You need to change this location for your projects. NOTICE: The class is in StringsServiceGrpc.java -> StringsServiceImplBase class (this Base class is generated from proto file option java_outer_classname)
 		import DS_CA.PatientMotionSensors.PatientMotionSensorsGrpc.PatientMotionSensorsImplBase;
-
-import DS_CA.PatientMotionSensors.PatientCabinRequest;
-		import DS_CA.PatientMotionSensors.MonitorAlertResponse;
-		import DS_CA.PatientMotionSensors.DoctorEntryRequest;
-		import DS_CA.PatientMotionSensors.ScheduledResponse;
+//required grpc package for the server side
+		import io.grpc.Server;
+import io.grpc.ServerBuilder;
+import io.grpc.stub.StreamObserver;
 
 
 		//Extend the ImplBase imported class here. It is an Interface file with required rpc methods
@@ -57,7 +40,7 @@ import DS_CA.PatientMotionSensors.PatientCabinRequest;
 				 pmsServer.registerServices(prop);
 
 				 	// This is the port number where server will be listening to clients. Refer - https://en.wikipedia.org/wiki/Port_(computer_networking) 
-				    int port = 50056;
+				    int port = 50055;
 				    
 				    
 				    // Here, we create a server on the port defined in in variable "port" and attach a service "SmartMedicalRecordsServer" (instance of the class) defined above.
@@ -68,7 +51,7 @@ import DS_CA.PatientMotionSensors.PatientCabinRequest;
 				    
 				    // Giving a logging information on the server console that server has started
 				    System.out.println("Server started, listening on patient record " + port);
-				    server.awaitTermination(50056, TimeUnit.MILLISECONDS);
+				    server.awaitTermination(50055, TimeUnit.MILLISECONDS);
 					
 					System.out.println("Ganesan_CA, Thank you for visiting Smart Hospital service");
 				    // Server will be running until externally terminated.
@@ -148,10 +131,7 @@ import DS_CA.PatientMotionSensors.PatientCabinRequest;
 						// In bidirectional stream, both server and  client would be sending the stream of messages.
 						// Here, for each message in stream from client, server is sending back one response.
 						System.out.println("Monitering the action in patient cabin.." +request.getAction());
-						//String input1=Boolean.toString(request.getAction());
-						//StringBuilder input1 = new StringBuilder(); 
-						  
-			           // input1.append(request.getAction()); 
+					
 						
 						boolean flag  = request.getAction();
 						 MonitorAlertResponse motion;
@@ -189,30 +169,23 @@ import DS_CA.PatientMotionSensors.PatientCabinRequest;
 		
 			public void operationSchedule(DoctorEntryRequest request, StreamObserver<ScheduledResponse> responseObserver) {
 			 
-				 System.out.println("Receiving Schedule:"+request.getData());
+				 System.out.println("Receiving priority:"+request.getData());
 				// LOGIC of THE METHOD 
 				 String dates  = request.getData();
 				 ScheduledResponse reply1;
 				
 				
-					if (dates == "Emergency") {
+					if (dates.equals("Emergency")) {
 						LocalDateTime time = LocalDateTime.ofEpochSecond(1537011000L, 0, ZoneOffset.UTC);
 					   // DateTimeFormatter date = ISO_LOCAL_DATE_TIME;
-						reply1 = ScheduledResponse.newBuilder().setBooking(time.format(null)).build(); 
-					//	reply1 = ScheduledResponse.newBuilder().setBooking(time.format(ISO_LOCAL_DATE_TIME)).build(); 
-						
+						reply1 = ScheduledResponse.newBuilder().setBooking(time.toString()).build(); 
+					
 					}
 					else {
 						reply1 =ScheduledResponse.newBuilder().setBooking("Shedule is 1 week after").build();
 					}
-				// Retrieve the value from the request of the client and convert it to array
-				 
-				// char[]characters = request.getData().toCharArray();
 			
-				 
-				// System.out.println(characters.length);
-				 
-				 //for(char c: characters) {			
+				
 					// Preparing and sending the reply for the client. Here, response is build and with the value (c) computed by above logic.
 					 // Here, a stream of response is sent using the for loop.
 					 responseObserver.onNext(reply1);
