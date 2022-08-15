@@ -38,15 +38,18 @@ package DS_CA.SmartMedicalRecords;
 
 		 public static void main(String[] args) throws IOException, InterruptedException {
 			    
-			 // The SMRServer is the current file name/ class name. Using an instance of this class different methods could be invoked by the client.
+			 // The SMRServer is the current file name/ class name. 
+			 //Using an instance of this class different methods could be invoked by the client.
 			 SMRServer smrServer = new SMRServer();
 			 Properties prop = smrServer.getProperties();
 			 smrServer.registerServices(prop);
-			 	// This is the port number where server will be listening to clients. Refer - https://en.wikipedia.org/wiki/Port_(computer_networking) 
-			    int port = 50055;
+			 	// This is the port number where server will be listening to clients. 
+			 //Refer - https://en.wikipedia.org/wiki/Port_(computer_networking) 
+			    int port = 50056;
 			    
 			    try {
-			    // Creating a server on the port defined in in variable "port" and attach a service "SmartMedicalRecordsServer" (instance of the class) defined above.
+			    // Creating a server on the port defined in in variable "port" and attach a service "SmartMedicalRecordsServer" 
+			    	//(instance of the class) defined above.
 			    Server server = ServerBuilder.forPort(port) // Port is defined in line 34
 			        .addService(smrServer) // Service is defined in line 31
 			        .build() // Build the server
@@ -54,7 +57,7 @@ package DS_CA.SmartMedicalRecords;
 			    
 			    // Giving a logging information on the server console that server has started
 			    System.out.println("Server started, listening on patient record " + port);
-			    server.awaitTermination(50055, TimeUnit.MILLISECONDS);
+			    server.awaitTermination(50056, TimeUnit.MILLISECONDS);
 				
 				System.out.println("Ganesan_CA, Thank you for visiting Smart Hospital service");
 			    // Server will be running until externally terminated.
@@ -75,7 +78,7 @@ package DS_CA.SmartMedicalRecords;
             
             String service_type = prop.getProperty("service_type") ;//"_http._tcp.local.";
             String service_name = prop.getProperty("service_name")  ;// "example";
-           // int service_port = 1234;
+       
             int service_port = Integer.valueOf( prop.getProperty("service_port") );// #.50051;
 
             

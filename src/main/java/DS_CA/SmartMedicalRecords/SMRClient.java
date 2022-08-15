@@ -21,8 +21,8 @@ import com.google.protobuf.GeneratedMessageV3.Builder;
 
 	//This is to include rpc method enum message
 	import DS_CA.SmartMedicalRecords.Message.Enum;
-	//import DS_CA.SmartMedicalRecords.SmartMedicalRecordsGrpc.SmartMedicalRecordsBlockingStub;
-	//import DS_CA.SmartMedicalRecords.SmartMedicalRecordsGrpc.SmartMedicalRecordsStub;
+	import DS_CA.SmartMedicalRecords.SmartMedicalRecordsGrpc.SmartMedicalRecordsBlockingStub;
+	import DS_CA.SmartMedicalRecords.SmartMedicalRecordsGrpc.SmartMedicalRecordsStub;
 	
 
 
@@ -37,9 +37,9 @@ import com.google.protobuf.GeneratedMessageV3.Builder;
 		
 		// The main method will have the logic for client.
 		public static void main(String[] args) throws Exception {
-		// First a channel is being created to the server from client. Here, we provide the server name (localhost) and port (50055).
+		// First a channel is being created to the server from client. Here, we provide the server name (localhost) and port (50056).
 			// As it is a local demo of GRPC, we can have non-secured channel (usePlaintext).
-			ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 50055).usePlaintext().build();
+			ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 50056).usePlaintext().build();
 
 			//stubs -- generate from proto
 			blockingStub = SmartMedicalRecordsGrpc.newBlockingStub(channel);
@@ -63,7 +63,7 @@ import com.google.protobuf.GeneratedMessageV3.Builder;
 			String id="545";
 			// First creating a request message. Here, the message contains a string in setVal
 			PatientIDRequest req = PatientIDRequest.newBuilder().setPID(id).build();
-			//req=PatientRecordResponse.getDefaultInstance("1").build();
+		
 			//  Calling a remote RPC method using blocking stub defined in main method. req is the message we want to pass.
 			PatientRecordResponse response = blockingStub.recordAccess(req);
 			
@@ -223,12 +223,14 @@ import com.google.protobuf.GeneratedMessageV3.Builder;
 		
 		public static void accessPharmacy() {
 
-			// Handling the stream for client using onNext (logic for handling each message in stream), onError, onCompleted (logic will be executed after the completion of stream)
+			// Handling the stream for client using onNext (logic for handling each message in stream), 
+			//onError, onCompleted (logic will be executed after the completion of stream)
 			StreamObserver<MedicineListResponse> responseObserver = new StreamObserver<MedicineListResponse>() {
-
+				
 				@Override
 				public void onNext(MedicineListResponse value) {
-					System.out.println("receiving the Prescription list : " + getPrescription());
+					System.out.println("receiving the Prescription list : " + value.getPrescription());
+					
 				}
 
 				@Override
@@ -248,7 +250,7 @@ import com.google.protobuf.GeneratedMessageV3.Builder;
 			
 			// Here, we are calling the Remote length method. Using onNext, client sends a stream of messages.
 			StreamObserver<ConsultIDRequest> requestObserver = asyncStub.accessPharmacy(responseObserver);
-			
+			//Defining some consult ID in array list
 			ArrayList<Integer>  lista = new ArrayList<Integer>();
 			lista.add(159);
 			lista.add(170);
@@ -260,20 +262,16 @@ import com.google.protobuf.GeneratedMessageV3.Builder;
 			lista.add(982);
 			lista.add(550);
 			
-
+			//using random methods, picking sone ID to deliver the output
 			Random r = new Random();
 			
 			int randomCID = r.nextInt(lista.size());
 	        int randCoulID = lista.get(randomCID);
 	       
-	        
-	       // return randCoulID;
-			
-			
+					
 			try {
 				
 				requestObserver.onNext(ConsultIDRequest.newBuilder().setCoulID(String.valueOf(randCoulID)).build());
-//				requestObserver.onNext(ConsultIDRequest.newBuilder().setCoulID("233").build());
 
 				System.out.println("SENDING MESSAGES");
 

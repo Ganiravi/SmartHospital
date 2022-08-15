@@ -37,19 +37,23 @@ package DS_CA.HealthMonitoringSensors;
 	public class HMSServer extends HealthMonitoringSensorsImplBase {
 
    
-		//Main method which contain the logic to start the server.	For throws keyword refer https://www.javatpoint.com/throw-keyword
+		//Main method which contain the logic to start the server.	
+		//For throws keyword refer https://www.javatpoint.com/throw-keyword
 
     public static void main(String[] args) throws IOException, InterruptedException {
 
-        // The HMSServer is the current file name/ class name. Using an instance of this class different methods could be invoked by the client.
+        // The HMSServer is the current file name/ class name. 
+    	//Using an instance of this class different methods could be invoked by the client.
         HMSServer hmsServer = new HMSServer();
         Properties prop = hmsServer.getProperties();
         hmsServer.registerServices(prop);
-        // This is the port number where server will be listening to clients. Refer - https://en.wikipedia.org/wiki/Port_(computer_networking) 
-        int port = 50055;
+        // This is the port number where server will be listening to clients. 
+        //Refer - https://en.wikipedia.org/wiki/Port_(computer_networking) 
+        int port = 50058;
 
         try {
-            // Creating a server on the port defined in in variable "port" and attach a service "SmartMedicalRecordsServer" (instance of the class) defined above.
+            // Creating a server on the port defined in in variable "port" and attach a service "SmartMedicalRecordsServer" 
+        	//(instance of the class) defined above.
             Server server = ServerBuilder.forPort(port) // Port is defined in line 49
                 .addService(hmsServer) // Service is defined in line 31
                 .build() // Build the server
@@ -57,7 +61,7 @@ package DS_CA.HealthMonitoringSensors;
 
             // Giving a logging information on the server console that server has started
             System.out.println("Server started, listening on patient record " + port);
-            server.awaitTermination(50055, TimeUnit.MILLISECONDS);
+            server.awaitTermination(50058, TimeUnit.MILLISECONDS);
 
             System.out.println("Ganesan_CA, Thank you for visiting Smart Hospital service");
             // Server will be running until externally terminated.
@@ -148,7 +152,7 @@ package DS_CA.HealthMonitoringSensors;
             @Override
             public void onNext(VisitorEntryRequest tempreq) {
                 // Here, in this example we compute the value of string length for each message in the stream. 
-                System.out.println("The observed Boday temperature is -> " + tempreq.getTempRange());
+                System.out.println("The observed Body temperature is -> " + tempreq.getTempRange());
 
                 temp = tempreq.getTempRange();
 
@@ -166,7 +170,7 @@ package DS_CA.HealthMonitoringSensors;
                 // Preparing and sending the reply for the client. Here, response is build and with the value (length) computed by above logic.
                 // Here, response is sent once the client is done with sending the stream.
 
-                System.out.printf("receiving body temperature range  \n");
+                System.out.printf("received body temperature range  \n");
                 //Logic for this methods to check the given temperature range wis within acceptatble level to allow access to hospital
                 TempResponse result;
                 if (temp >= 37.8) {//approved temp range
@@ -193,7 +197,7 @@ package DS_CA.HealthMonitoringSensors;
 
             @Override
             public void onNext(PatientBMIRequest bmiInput) {
-                System.out.println("receiving Boday Mass Index (BMI) inputes, Height (in meter) : " + bmiInput.getHeight() + " Weight(in Kg): " + bmiInput.getWeight());
+                System.out.println("received Body Mass Index (BMI) inputes, Height (in meter) : " + bmiInput.getHeight() + " Weight(in Kg): " + bmiInput.getWeight());
 
                 //Logic method to calculate the BMI as per the given height and weight
                 double bmi = (100 * 100 * bmiInput.getWeight()) / ((bmiInput.getHeight()) * (bmiInput.getHeight()));

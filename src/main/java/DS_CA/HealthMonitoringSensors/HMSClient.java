@@ -1,4 +1,3 @@
-
 	// Name of the package where all the generated files are present.
 	package DS_CA.HealthMonitoringSensors;
 
@@ -12,10 +11,10 @@
 
 	import com.google.protobuf.GeneratedMessageV3.Builder;
 
-import DS_CA.HealthMonitoringSensors.VisitorEntryRequest;
-import DS_CA.HealthMonitoringSensors.PatientBMIRequest;
-import DS_CA.HealthMonitoringSensors.BMIResultResponse;
-import DS_CA.HealthMonitoringSensors.TempResponse;
+	import DS_CA.HealthMonitoringSensors.VisitorEntryRequest;
+	import DS_CA.HealthMonitoringSensors.PatientBMIRequest;
+	import DS_CA.HealthMonitoringSensors.BMIResultResponse;
+	import DS_CA.HealthMonitoringSensors.TempResponse;
 //required grpc package for the client side
 		import io.grpc.ManagedChannel;
 		import io.grpc.ManagedChannelBuilder;
@@ -28,10 +27,6 @@ import DS_CA.HealthMonitoringSensors.TempResponse;
 		import DS_CA.HealthMonitoringSensors.HealthMonitoringSensorsGrpc.HealthMonitoringSensorsBlockingStub;
 		import DS_CA.HealthMonitoringSensors.HealthMonitoringSensorsGrpc.HealthMonitoringSensorsStub;
 
-
-		
-
-
 		// Client need not to extend any other class (GRPC related code) here 
 		public class HMSClient {
 			
@@ -43,28 +38,26 @@ import DS_CA.HealthMonitoringSensors.TempResponse;
 			
 			// The main method will have the logic for client.
 			public static void main(String[] args) throws Exception {
-			// First a channel is being created to the server from client. Here, we provide the server name (localhost) and port (50055).
+			// First a channel is being created to the server from client. 
+				//Here, we provide the server name (localhost) and port (50058).
 				// As it is a local demo of GRPC, we can have non-secured channel (usePlaintext).
-				ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 50055).usePlaintext().build();
+				ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 50058).usePlaintext().build();
 
 				//stubs -- generate from proto
 				blockingStub = HealthMonitoringSensorsGrpc.newBlockingStub(channel);
 				asyncStub = HealthMonitoringSensorsGrpc.newStub(channel);
-
 				
 				//client stream RPC
 				tempScanner();
-				// Unary RPC call
+				// Bi-directional RPC call
 				bmi();
-				//empty(); 	//passing an empty message - no server reply, error message
 
 				// Closing the channel once message has been passed.		
 				channel.shutdown();
 
 			}
 
-			
-		public static void tempScanner() {
+			public static void tempScanner() {
 
 				StreamObserver<TempResponse> responseObserver = new StreamObserver<TempResponse>() {
 					int count =0;
@@ -105,11 +98,8 @@ import DS_CA.HealthMonitoringSensors.TempResponse;
 					e.printStackTrace();
 				}
 		}
-
-				
-				
+								
 			public static void bmi() {
-
 
 				StreamObserver<BMIResultResponse> responseObserver = new StreamObserver<BMIResultResponse>() {
 
@@ -134,8 +124,6 @@ import DS_CA.HealthMonitoringSensors.TempResponse;
 
 				};
 
-
-
 				StreamObserver<PatientBMIRequest> requestObserver = asyncStub.bmi(responseObserver);
 				double ht=160.0;
 				double wt =89.0;
@@ -144,22 +132,16 @@ import DS_CA.HealthMonitoringSensors.TempResponse;
 
 					requestObserver.onNext(PatientBMIRequest.newBuilder().setHeight(ht).setWeight(wt).build());
 									
-
 					// Mark the end of requests
 					requestObserver.onCompleted();
 
-
 					// Sleep for a bit before sending the next one.
 					Thread.sleep(new Random().nextInt(1000) + 500);
-
-
 				} catch (RuntimeException e) {
 					e.printStackTrace();
 				} catch (InterruptedException e) {			
 					e.printStackTrace();
 				}
-
-
 
 				try {
 					Thread.sleep(15000);

@@ -1,20 +1,18 @@
-
 	// Name of the package where all the generated files are present.
-	package DS_CA.PatientMotionSensors;
-
+		package DS_CA.PatientMotionSensors;
 
 		import java.time.LocalDateTime;
-import java.time.ZoneOffset;
+		import java.time.ZoneOffset;
 //required java packages for the program. Depends on your logic.
 		import java.util.ArrayList;
 		import java.util.Arrays;
-import java.util.Date;
-import java.util.Iterator;
+		import java.util.Date;
+		import java.util.Iterator;
 		import java.util.Random;
 		import java.util.logging.Level;
 		import java.util.logging.Logger;
 
-	import com.google.protobuf.GeneratedMessageV3.Builder;
+		import com.google.protobuf.GeneratedMessageV3.Builder;
 
 	//required grpc package for the client side
 		import io.grpc.ManagedChannel;
@@ -30,8 +28,6 @@ import java.util.Iterator;
 		import DS_CA.PatientMotionSensors.DoctorEntryRequest;
 		import DS_CA.PatientMotionSensors.ScheduledResponse;
 		
-
-
 		// Client need not to extend any other class (GRPC related code) here 
 		public class PMSClient  {
 			// First we create a logger to show client side logs in the console. logger instance will be used to log different events at the client console.
@@ -46,9 +42,9 @@ import java.util.Iterator;
 			
 			// The main method will have the logic for client.
 			public static void main(String[] args) throws Exception {
-			// First a channel is being created to the server from client. Here, we provide the server name (localhost) and port (50055).
+			// First a channel is being created to the server from client. Here, we provide the server name (localhost) and port (50057).
 				// As it is a local demo of GRPC, we can have non-secured channel (usePlaintext).
-				ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 50055).usePlaintext().build();
+				ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 50057).usePlaintext().build();
 
 				//stubs -- generate from proto
 				blockingStub = PatientMotionSensorsGrpc.newBlockingStub(channel);
@@ -63,7 +59,6 @@ import java.util.Iterator;
 				// RPC call with Blocking stub
 				operationScheduleBlocking();
 				
-
 				// Closing the channel once message has been passed.		
 				channel.shutdown();
 
@@ -94,36 +89,29 @@ import java.util.Iterator;
 						System.out.println("server completed" +count);
 					}
 
-
-
 				};
 				
 
 				// Here, we are calling the Remote reverseStream method. Using onNext, client sends a stream of messages.
 				StreamObserver<PatientCabinRequest> requestObserver = asyncStub.motionMonit(responseObserver);
 			
-		
-			try {
+		try {
 
 					requestObserver.onNext(PatientCabinRequest.newBuilder().setAction(true).build());
 			
-
 					System.out.println("SENDING MESSAGES");
 
 					// Mark the end of requests
 					requestObserver.onCompleted();
 
-
 					// Sleep for a bit before sending the next one.
 					Thread.sleep(new Random().nextInt(1000) + 500);
-
 
 				} catch (RuntimeException e) {
 					e.printStackTrace();
 				} catch (InterruptedException e) {			
 					e.printStackTrace();
 				}
-
 
 			}
 			
@@ -136,8 +124,7 @@ import java.util.Iterator;
 
 				// Handling the stream from server using onNext (logic for handling each message in stream), onError, onCompleted (logic will be executed after the completion of stream)
 				StreamObserver<ScheduledResponse> responseObserver = new StreamObserver<ScheduledResponse>() {
-
-					
+				
 					int count =0;
 
 					@Override
@@ -159,9 +146,9 @@ import java.util.Iterator;
 
 				};
 
-				// Here, we are calling the Remote split method. On receiving the message from server the onNext, onError, onCompleted will be called (as defined above). 
+				// Here, we are calling the Remote split method. On receiving the message from server the onNext, 
+				//onError, onCompleted will be called (as defined above). 
 				asyncStub.operationSchedule (request, responseObserver);
-
 
 				try {
 					Thread.sleep(3000);
@@ -178,9 +165,7 @@ import java.util.Iterator;
 				// First creating a request message. Here, the message contains a string in setData
 				
 				DoctorEntryRequest request = DoctorEntryRequest.newBuilder().setData("Emergency").build();
-				    
-			   
-			    
+				    			    
 				// as this call is blocking. The client will not proceed until all the messages in stream has been received. 
 				try {
 					// Iterating each message in response when calling remote split RPC method.
@@ -200,6 +185,5 @@ import java.util.Iterator;
 				}
 				
 			}
-
 
 }
