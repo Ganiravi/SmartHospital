@@ -101,24 +101,14 @@ import java.util.Iterator;
 
 				// Here, we are calling the Remote reverseStream method. Using onNext, client sends a stream of messages.
 				StreamObserver<PatientCabinRequest> requestObserver = asyncStub.motionMonit(responseObserver);
-				//boolean action  = true;
-				//MonitorAlertResponse reply;
-				/**if(action)
-				{
-					//reply=MonitorAlertResponse.newBuilder().setAlert("CAUTION: Immediate attention required").build();
-					System.out.println("CAUTION: Immediate attention required");
-				}
-				else {
-					//reply=MonitorAlertResponse.newBuilder().setAlert("Normal: Continues monitering required").build();
-					System.out.println("Normal: Continues monitering required");
-				}**/
+			
+		
 			try {
 
 					requestObserver.onNext(PatientCabinRequest.newBuilder().setAction(true).build());
-//					requestObserver.onNext(PatientCabinRequest.newBuilder().setAction(false).build());
-//				
+			
 
-					//System.out.println("SENDING MESSAGES");
+					System.out.println("SENDING MESSAGES");
 
 					// Mark the end of requests
 					requestObserver.onCompleted();
@@ -188,9 +178,7 @@ import java.util.Iterator;
 				// First creating a request message. Here, the message contains a string in setData
 				
 				DoctorEntryRequest request = DoctorEntryRequest.newBuilder().setData("Emergency").build();
-				
-				
-			    
+				    
 			   
 			    
 				// as this call is blocking. The client will not proceed until all the messages in stream has been received. 

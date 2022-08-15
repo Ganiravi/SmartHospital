@@ -28,10 +28,7 @@ import com.google.protobuf.GeneratedMessageV3.Builder;
 
 	// Client need not to extend any other class (GRPC related code) here 
 	public class SMRClient {
-		// First we create a logger to show client side logs in the console. logger instance will be used to log different events at the client console.
-		// This is optional. Could be used if needed.
-		//private static  Logger logger = Logger.getLogger(SMRClient.class.getName());
-
+	
 		// Creating stubs for establishing the connection with server.
 		// Blocking stub
 		private static SmartMedicalRecordsGrpc.SmartMedicalRecordsBlockingStub blockingStub;

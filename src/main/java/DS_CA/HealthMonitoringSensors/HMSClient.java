@@ -34,10 +34,7 @@ import DS_CA.HealthMonitoringSensors.TempResponse;
 
 		// Client need not to extend any other class (GRPC related code) here 
 		public class HMSClient {
-			// First we create a logger to show client side logs in the console. logger instance will be used to log different events at the client console.
-			// This is optional. Could be used if needed.
-			//private static  Logger logger = Logger.getLogger(SMRClient.class.getName());
-
+			
 			// Creating stubs for establishing the connection with server.
 			// Blocking stub
 			private static HealthMonitoringSensorsGrpc.HealthMonitoringSensorsBlockingStub blockingStub;
@@ -140,10 +137,12 @@ import DS_CA.HealthMonitoringSensors.TempResponse;
 
 
 				StreamObserver<PatientBMIRequest> requestObserver = asyncStub.bmi(responseObserver);
-
+				double ht=160.0;
+				double wt =89.0;
+				
 				try {
 
-					requestObserver.onNext(PatientBMIRequest.newBuilder().setHeight(160).setWeight(89).build());
+					requestObserver.onNext(PatientBMIRequest.newBuilder().setHeight(ht).setWeight(wt).build());
 									
 
 					// Mark the end of requests
