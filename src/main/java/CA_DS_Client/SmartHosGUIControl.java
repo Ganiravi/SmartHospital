@@ -412,7 +412,8 @@ package CA_DS_Client;
 				response.getUnknownFields().asMap().get(1);
 				reply1.setText( response.getVal());
 			
-			}else if (label.equals("Get the prescription")) {
+			}
+			else if (label.equals("Get the prescription")) {
 				System.out.println("service 1 A to be invoked ...");
 
 			
